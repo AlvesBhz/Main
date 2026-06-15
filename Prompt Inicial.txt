@@ -1,0 +1,219 @@
+Você é um desenvolvedor Front-End sênior especializado em experiências premium para turismo, hotelaria e hospedagens de alto padrão.
+
+Objetivo
+
+Criar um arquivo único index.html contendo exclusivamente uma seção Hero para o site de hospedagem de um chalé.
+
+O resultado deve transmitir:
+
+Sofisticação
+Conforto
+Exclusividade
+Contato com a natureza
+Experiência premium
+Alta conversão para reservas
+Arquivos disponíveis
+
+Você possui acesso aos seguintes arquivos:
+
+1. Design System
+
+Arquivo:
+
+design-system.html
+
+Este é o documento mais importante do projeto.
+
+Analise profundamente esse arquivo e utilize rigorosamente:
+
+Paleta de cores
+Tipografia
+Escalas de espaçamento
+Grid/Layout
+Componentes
+Efeitos visuais
+Padrões de UX
+Sistema de sombras
+Bordas
+Microinterações
+Animações
+Hierarquia visual
+
+Todo o Hero deve seguir fielmente esse Design System.
+
+Não invente estilos que contrariem o sistema existente.
+
+2. Imagem Principal
+
+Arquivo:
+
+xxxxx
+
+Utilize esta imagem como elemento principal do Hero.
+
+A imagem deve ser valorizada e integrada ao layout de forma cinematográfica.
+
+Estrutura desejada
+
+Criar apenas a Hero Section.
+
+Ela deve conter:
+
+Navbar minimalista
+Logo/Nome do chalé
+Links de navegação fictícios
+CTA destacado para reserva
+Hero principal
+
+Conteúdo:
+
+Headline emocional e aspiracional
+Subheadline persuasiva
+CTA principal
+CTA secundário
+Destaques rápidos da hospedagem
+
+Exemplos de destaques:
+
+Vista para a natureza
+Hidromassagem
+Wi-Fi
+Café da manhã
+Experiência romântica
+Overlay
+
+Adicionar overlays sofisticados sobre a imagem para garantir legibilidade.
+
+Indicadores visuais
+
+Adicionar elementos que transmitam luxo e exclusividade:
+
+Glassmorphism leve
+Gradientes suaves
+Highlights luminosos
+Depth layers
+Parallax discreto
+Direção visual
+
+Inspirar-se em experiências premium similares a:
+
+Airbnb Luxe
+Cabana
+Aframe
+Boutique Hotels
+Hospedagens de luxo em montanhas e florestas
+
+Sem copiar layouts.
+
+Animações
+
+Caprichar nos detalhes.
+
+Adicionar:
+
+Entrada da página
+Fade-in suave
+Stagger animations
+Reveal animations
+Elementos do Hero
+Texto aparecendo progressivamente
+Botões com microinterações
+Hover refinado
+Floating effects discretos
+Motion elegante
+Imagem
+Zoom cinematográfico extremamente sutil
+Parallax leve baseado no mouse
+Efeito de profundidade
+Scroll Hint
+
+Adicionar um indicador elegante de rolagem.
+
+UX
+
+Prioridades:
+
+Legibilidade impecável
+Excelente contraste
+CTA muito evidente
+Hierarquia visual premium
+Performance elevada
+Responsividade
+
+Implementar responsividade completa:
+
+Mobile
+Layout otimizado
+Tipografia adaptada
+CTA visível acima da dobra
+Tablet
+Ajustes intermediários
+Desktop
+Aproveitamento máximo da imagem
+Ultra-wide
+Layout elegante sem esticar excessivamente
+Bibliotecas permitidas
+
+Utilizar apenas via CDN.
+
+Prioridade para:
+
+GSAP
+
+Para:
+
+Hero reveal
+Parallax
+Timeline animations
+Microinterações
+Lenis
+
+Para smooth scrolling premium.
+
+AOS
+
+Opcional para efeitos de entrada.
+
+Lucide Icons
+
+Para ícones modernos.
+
+Splitting.js
+
+Para animações avançadas de texto.
+
+Vanilla Tilt
+
+Para efeitos sutis de profundidade.
+
+Anime.js
+
+Caso necessário para detalhes específicos.
+
+CSS moderno
+
+Utilizar:
+
+CSS Variables
+Clamp()
+Container Queries (quando fizer sentido)
+Backdrop Filter
+CSS Grid
+Flexbox
+Modern Viewport Units
+Qualidade esperada
+
+O Hero deve parecer um projeto premium de agência especializada em hotelaria de luxo.
+
+Ao finalizar:
+
+Entregar apenas o código completo do index.html
+CSS embutido no documento
+JavaScript embutido no documento
+CDN das bibliotecas necessárias
+Código organizado e comentado
+Sem textos genéricos
+Sem placeholders visuais simplistas
+Sem aparência de template comum
+
+O objetivo é causar impacto visual imediato e transmitir o desejo de reservar o chalé nos primeiros segundos de navegação.

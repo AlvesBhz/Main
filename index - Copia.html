@@ -1,0 +1,3281 @@
+﻿<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Solar do Espinhaço · Design System V3.3</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=block" rel="stylesheet"/>
+
+<style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════ */
+:root {
+  --c-white:      #FFFFFF;
+  --c-cream:      #FAFAF9;
+  --c-s50:        #FAFAF9;
+  --c-s100:       #F5F5F4;
+  --c-s200:       #E7E5E4;
+  --c-s300:       #D6D3D1;
+  --c-s400:       #A8A29E;
+  --c-s500:       #78716C;
+  --c-s600:       #57534E;
+  --c-s700:       #44403C;
+  --c-s800:       #292423;
+  --c-s900:       #1C1917;
+  --c-pine:       #2C3E35;
+  --c-pine-deep:  #1C2922;
+  --c-pine-mid:   #3D5547;
+  --font-serif:   'Cormorant Garamond', Georgia, serif;
+  --font-sans:    'Inter', system-ui, sans-serif;
+  --font-italic:  'Instrument Serif', serif;
+  --ease-out:     cubic-bezier(0.2, 1, 0.2, 1);
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --c-gold:       #C9A96E;
+  --c-gold-lt:    #E8D5A3;
+}
+
+body { font-family: var(--font-sans); overflow-x: hidden; }
+h1, h2, h3, h4, .serif { font-family: var(--font-serif); }
+::selection { background: var(--c-s900); color: #fff; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--c-s100); }
+::-webkit-scrollbar-thumb { background: var(--c-s300); border-radius: 99px; }
+
+/* ═══════════════════════════════════════
+   GLASS CLASSES (Jamaican Scape)
+═══════════════════════════════════════ */
+.glass-panel {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.glass-badge {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.glass-card {
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* ═══════════════════════════════════════
+   TOP NAV · Jamaican Scape pattern
+   Padrão exato: transparente em repouso,
+   vidro verde-pine ao passar o mouse
+═══════════════════════════════════════ */
+.nav-top {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 50;
+  background: transparent;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: background 0.45s ease, backdrop-filter 0.45s ease, -webkit-backdrop-filter 0.45s ease, border-color 0.45s ease;
+}
+.nav-top.is-scrolled {
+  background: rgba(44, 62, 53, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom-color: rgba(255,255,255,0.10);
+}
+.nav-top-inner {
+  max-width: 80rem; margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 5rem;
+}
+.nav-logo {
+  display: inline-flex; align-items: center; gap: 0.65rem;
+  padding: 0.25rem;
+  background: transparent;
+  border: none; box-shadow: none;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  flex-shrink: 0;
+}
+.nav-logo:hover { opacity: 0.82; }
+.nav-logo-seal {
+  display: block;
+  flex-shrink: 0;
+  transition: transform 0.4s var(--ease-spring);
+}
+.nav-logo:hover .nav-logo-seal { transform: scale(1.06); }
+.nav-top.is-scrolled .nav-logo { background: transparent; }
+.nav-top.is-scrolled .nav-logo:hover { background: transparent; }
+.nav-top a:not(.nav-logo):not(.nav-cta) {
+  font-size: 0.7rem; text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.40);
+  text-decoration: none; white-space: nowrap;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+.nav-top a:not(.nav-logo):not(.nav-cta):hover { color: #fff; }
+.nav-phone {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  color: rgba(255,255,255,0.88);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.40);
+  text-decoration: none; white-space: nowrap;
+  font-size: 0.82rem; letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+.nav-phone:hover { color: #fff; }
+.nav-cta {
+  background: #fff; color: var(--c-s900) !important;
+  padding: 0.55rem 1.25rem;
+  font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 600; white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.nav-cta:hover { background: var(--c-s100); }
+
+/* ═══════════════════════════════════════
+   KEYFRAMES
+═══════════════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1;    transform: scale(1.06); }
+  50%       { opacity: 0.82; transform: scale(1);    }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-18px) rotate(2deg); }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50%       { opacity: 0.65; transform: scale(1.12); }
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+  50%       { transform: none;            animation-timing-function: cubic-bezier(0,0,0.2,1); }
+}
+@keyframes orb1 {
+  0%, 100% { transform: translate(0,0)        scale(1);    }
+  33%       { transform: translate(40px,-50px) scale(1.08); }
+  66%       { transform: translate(-30px,25px) scale(0.94); }
+}
+@keyframes orb2 {
+  0%, 100% { transform: translate(0,0)         scale(1);    }
+  33%       { transform: translate(-50px,30px)  scale(0.92); }
+  66%       { transform: translate(35px,-40px)  scale(1.06); }
+}
+@keyframes shimmer {
+  from { background-position: -200% center; }
+  to   { background-position:  200% center; }
+}
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes d2KenIn {
+  from { transform: scale(1.00); }
+  to   { transform: scale(1.08); }
+}
+@keyframes d2KenOut {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1.00); }
+}
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.72s var(--ease-out), transform 0.72s var(--ease-out);
+}
+.reveal.visible  { opacity: 1; transform: translateY(0); }
+.reveal-left {
+  opacity: 0; transform: translateX(-28px);
+  transition: opacity 0.72s var(--ease-out), transform 0.72s var(--ease-out);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-scale {
+  opacity: 0; transform: scale(0.94);
+  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
+}
+.reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+/* ═══════════════════════════════════════
+   HERO AMBIENT ORBS
+═══════════════════════════════════════ */
+.hero-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); pointer-events: none;
+}
+
+/* ═══════════════════════════════════════
+   BUTTON SHIMMER
+═══════════════════════════════════════ */
+.btn-glow { position: relative; overflow: hidden; }
+.btn-glow::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%);
+  background-size: 200% 100%;
+  opacity: 0; transition: opacity 0.3s;
+}
+.btn-glow:hover::after { opacity: 1; animation: shimmer 0.6s ease forwards; }
+
+/* ═══════════════════════════════════════
+   LANGUAGE COMBO BOX
+   Cores: paleta Pine do Design System
+═══════════════════════════════════════ */
+.lang-combo { position: relative; }
+
+/* trigger — sem fundo, sem borda, idêntico aos links do nav */
+.lang-combo-trigger {
+  display: inline-flex; align-items: center; gap: 0.32rem;
+  background: transparent;
+  border: none;
+  padding: 0.5rem 0.2rem 0.5rem 0.65rem;
+  cursor: pointer;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.40);
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+.lang-combo-trigger:hover { color: #fff; }
+
+/* chevron roda ao hover */
+.lang-combo-chevron { transition: transform 0.25s var(--ease-spring); flex-shrink:0; opacity:0.65; }
+.lang-combo:hover .lang-combo-chevron { transform: rotate(180deg); }
+
+/* dropdown — vidro neutro suave */
+.lang-combo-dropdown {
+  position: absolute; top: 100%; left: 0;
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 0; min-width: 100%;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.18s ease, visibility 0.18s ease;
+  z-index: 300;
+}
+.lang-combo:hover .lang-combo-dropdown {
+  opacity: 1; visibility: visible; pointer-events: all;
+}
+
+/* trigger ao hover: vidro neutro idêntico */
+.lang-combo:hover .lang-combo-trigger {
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  padding: 0.5rem 0.2rem 0.5rem 0.65rem;
+}
+
+/* opções — mesmo padding-left do trigger para alinhar as siglas */
+.lang-combo-option {
+  display: flex; align-items: center;
+  width: 100%; padding: 0.44rem 0.2rem 0.44rem 0.65rem;
+  border: none; background: transparent; cursor: pointer;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.40);
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.lang-combo-option:last-child { border-radius: 0 0 8px 8px; }
+.lang-combo-option:hover { background: rgba(255,255,255,0.10); color: #fff; }
+
+/* ═══════════════════════════════════════
+   TICKER
+═══════════════════════════════════════ */
+.ticker-wrap  { overflow: hidden; white-space: nowrap; }
+.ticker-inner { display: inline-flex; animation: marquee 30s linear infinite; }
+
+/* ═══════════════════════════════════════
+   BOOKING POPOVERS
+═══════════════════════════════════════ */
+.bk-pop {
+  position: absolute;
+  top: calc(100% + 10px);
+  z-index: 200;
+  background: rgba(14,18,15,0.97);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: .85rem .85rem .7rem;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.60);
+  animation: fadeDown 0.2s var(--ease-out) both;
+}
+.bk-pop-cal    { width: 220px; }
+.bk-pop-guests { right: 0; width: 210px; }
+
+/* ── calendar ── */
+.cal-head {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:.6rem;
+}
+.cal-month {
+  font-family:var(--font-serif); font-size:.88rem; font-weight:500;
+  color:rgba(255,255,255,0.88); letter-spacing:.02em;
+}
+.cal-arrow {
+  width:24px; height:24px; border-radius:50%;
+  border:1px solid rgba(255,255,255,0.12);
+  background:transparent; color:rgba(255,255,255,0.65);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:background .2s,color .2s;
+}
+.cal-arrow:hover { background:rgba(255,255,255,0.12); color:#fff; }
+.cal-wdays {
+  display:grid; grid-template-columns:repeat(7,1fr);
+  margin-bottom:.22rem;
+}
+.cal-wd {
+  text-align:center; font-size:.50rem; font-weight:600;
+  letter-spacing:.06em; text-transform:uppercase;
+  color:rgba(255,255,255,0.25); padding:.12rem 0;
+}
+.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:1px; }
+.cal-d {
+  text-align:center; font-size:.68rem;
+  color:rgba(255,255,255,0.70); padding:.3rem .05rem;
+  border-radius:6px; cursor:pointer; position:relative;
+  transition:background .15s,color .15s;
+}
+.cal-d:hover:not(.cal-off):not(.cal-empty) {
+  background:rgba(255,255,255,0.10); color:#fff;
+}
+.cal-today { color:#fff; font-weight:600; }
+.cal-today::after {
+  content:''; position:absolute; bottom:2px; left:50%;
+  transform:translateX(-50%);
+  width:3px; height:3px; border-radius:50%; background:rgba(255,255,255,0.45);
+}
+.cal-off   { color:rgba(255,255,255,0.18); cursor:not-allowed; }
+.cal-empty { cursor:default; }
+.cal-sel {
+  background:#fff !important; color:var(--c-s900) !important;
+  font-weight:600; border-radius:6px !important;
+}
+.cal-range { background:rgba(255,255,255,0.10); border-radius:0; color:rgba(255,255,255,0.88); }
+.cal-rs { border-radius:6px 0 0 6px !important; }
+.cal-re { border-radius:0 6px 6px 0 !important; }
+.cal-prev { background:rgba(255,255,255,0.07); border-radius:0; color:rgba(255,255,255,0.80); }
+.cal-prev-end { background:rgba(255,255,255,0.55) !important; color:var(--c-s900) !important; font-weight:600; border-radius:6px !important; }
+.cal-blocked { color:rgba(255,255,255,0.15); cursor:not-allowed; text-decoration:line-through; }
+.cal-hint {
+  font-size:.55rem; letter-spacing:.12em; text-transform:uppercase;
+  color:rgba(255,255,255,0.28); text-align:center;
+}
+.cal-footer {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:.55rem; padding-top:.45rem;
+  border-top:1px solid rgba(255,255,255,0.07);
+  min-height:1.4rem;
+}
+.cal-nights {
+  font-size:.65rem; font-weight:600; letter-spacing:.04em;
+  color:rgba(255,255,255,0.65);
+}
+.cal-clear {
+  font-size:.55rem; letter-spacing:.10em; text-transform:uppercase;
+  color:rgba(255,255,255,0.32); background:none; border:none; cursor:pointer;
+  padding:0; transition:color .15s;
+}
+.cal-clear:hover { color:rgba(255,255,255,0.70); }
+
+/* ── guests ── */
+.gst-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.75rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.gst-row:last-child { border-bottom:none; }
+.gst-title { font-size:.82rem; font-weight:500; color:rgba(255,255,255,0.88); }
+.gst-sub   { font-size:.62rem; color:rgba(255,255,255,0.28); margin-top:1px; }
+.gst-ctrl  { display:flex; align-items:center; gap:.75rem; }
+.gst-btn {
+  width:28px; height:28px; border-radius:50%;
+  border:1px solid rgba(255,255,255,0.18); background:transparent;
+  color:rgba(255,255,255,0.8); font-size:1rem; line-height:1;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.gst-btn:hover:not(:disabled) {
+  background:rgba(255,255,255,0.14); border-color:rgba(255,255,255,0.35); color:#fff;
+}
+.gst-btn:disabled { opacity:.22; cursor:not-allowed; }
+.gst-n {
+  font-family:var(--font-serif); font-size:1.1rem; font-weight:500;
+  color:#fff; min-width:1.4rem; text-align:center;
+}
+
+/* ═══════════════════════════════════════
+   BRAND CARDS · Variantes tipográficas
+═══════════════════════════════════════ */
+.brand-card {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 40px;
+  box-shadow: 0 1px 0 rgba(28,25,23,0.04), 0 18px 48px -28px rgba(28,25,23,0.18);
+}
+.brand-card.bone { background: #EAE5D9; color: #1C2922; }
+.brand-card.pine { background: #1C2922; color: #FAFAF9; }
+.brand-card .tag-l,
+.brand-card .tag-r {
+  position: absolute;
+  bottom: 14px;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+.brand-card .tag-l { left: 16px; }
+.brand-card .tag-r { right: 16px; }
+
+/* ═══════════════════════════════════════
+   HERO · TÍTULO → FRASE
+═══════════════════════════════════════ */
+@keyframes heroFadeOut {
+  0%   { opacity: 1;    }
+  12%  { opacity: 0.96; }
+  28%  { opacity: 0.82; }
+  48%  { opacity: 0.55; }
+  68%  { opacity: 0.28; }
+  85%  { opacity: 0.08; }
+  100% { opacity: 0;    }
+}
+#heroTitle.fade-out {
+  animation: heroFadeOut 2.5s linear forwards;
+  pointer-events: none;
+}
+
+#heroPhrase {
+  position: absolute;
+  inset: 0;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 2.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 2.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+#heroPhrase.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+#heroPhrase p {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.45rem, 2.7vw, 2.4rem);
+  color: rgba(255,255,255,0.93);
+  text-align: center;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  text-shadow: 0 2px 40px rgba(0,0,0,0.55), 0 1px 10px rgba(0,0,0,0.35);
+}
+
+/* ═══════════════════════════════════════
+   HAMBURGER BUTTON
+═══════════════════════════════════════ */
+.nav-menu-zone { display: flex; align-items: center; overflow: hidden; }
+.nav-burger {
+  display: flex; flex-direction: column; gap: 5px;
+  width: 36px; height: 36px;
+  align-items: flex-start; justify-content: center;
+  background: none; border: none; cursor: pointer;
+  padding: 0; flex-shrink: 0;
+}
+.nav-burger span {
+  display: block; height: 1px;
+  background: rgba(255,255,255,0.82);
+  transform-origin: left center;
+  transition: width 0.35s var(--ease-out),
+              opacity 0.25s ease,
+              transform 0.35s var(--ease-out),
+              background 0.25s ease;
+}
+.nav-burger span:nth-child(1) { width: 26px; }
+.nav-burger span:nth-child(2) { width: 18px; }
+.nav-burger span:nth-child(3) { width: 22px; }
+.nav-burger:hover span,
+.nav-burger.is-open span   { background: #fff; }
+.nav-burger:hover span:nth-child(1),
+.nav-burger:hover span:nth-child(2),
+.nav-burger:hover span:nth-child(3) { width: 26px; }
+.nav-burger.is-open span:nth-child(1) { transform: rotate(43deg); width: 24px; }
+.nav-burger.is-open span:nth-child(2) { opacity: 0; width: 0; }
+.nav-burger.is-open span:nth-child(3) { transform: rotate(-43deg); width: 24px; }
+
+/* ═══════════════════════════════════════
+   IDIOMA INLINE — PT EN ES
+═══════════════════════════════════════ */
+.lang-inline {
+  display: flex; align-items: center; gap: 0;
+}
+.lang-inline-btn {
+  background: none; border: none; cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  font-family: var(--font-sans); font-size: 0.62rem;
+  font-weight: 600; letter-spacing: 0.20em; text-transform: uppercase;
+  color: rgba(255,255,255,0.40);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.40);
+  transition: color 0.25s ease;
+}
+.lang-inline-btn:not(:last-child) {
+  border-right: 1px solid rgba(255,255,255,0.18);
+}
+.lang-inline-btn:hover,
+.lang-inline-btn.active { color: rgba(255,255,255,0.90); }
+
+/* ═══════════════════════════════════════
+   MENU INLINE — clique para abrir/fechar
+═══════════════════════════════════════ */
+.site-menu {
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  pointer-events: none;
+  flex-shrink: 0;
+  transition: max-width 0.55s var(--ease-out), opacity 0.42s ease;
+}
+.site-menu.is-open {
+  max-width: 480px;
+  opacity: 1;
+  pointer-events: auto;
+}
+.site-menu-list {
+  list-style: none; margin: 0;
+  padding: 0 0 0 2rem;
+  display: flex; align-items: center; gap: 2rem;
+  white-space: nowrap;
+}
+.site-menu-item { flex-shrink: 0; }
+
+/* Efeito hover: linha cresce da esquerda via background-size
+   (não usa ::after para não ser cortado pelo overflow:hidden do pai) */
+.site-menu-item a {
+  display: inline-block;
+  background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85));
+  background-size: 0% 1px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  padding-bottom: 2px;
+  transition: color 0.28s ease, background-size 0.30s var(--ease-out) !important;
+}
+.site-menu-item a:hover {
+  color: #fff !important;
+  background-size: 100% 1px;
+}
+
+/* ═══════════════════════════════════════
+   CHALÉ — MOSAICO EDITORIAL
+═══════════════════════════════════════ */
+
+.chale-mosaic {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  grid-template-rows: 340px 280px 260px;
+  gap: 18px;
+}
+
+.chale-wrap {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.chale-wrap.chale-main { grid-row: 1 / 3; }
+.chale-wrap.is-visible  { opacity: 1; transform: translateY(0); }
+
+.chale-card {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--c-s800);
+  height: 100%;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.14), 0 1px 4px rgba(0,0,0,0.08);
+  transition: box-shadow 0.65s var(--ease-out), transform 0.65s var(--ease-out);
+}
+.chale-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 28px 72px rgba(0,0,0,0.32), 0 8px 24px rgba(0,0,0,0.16);
+}
+
+.chale-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+  transition: transform 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.chale-card:hover .chale-img { transform: scale(1.05); }
+
+.chale-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(14,20,16,0.92) 0%,
+    rgba(14,20,16,0.60) 30%,
+    rgba(14,20,16,0.18) 60%,
+    rgba(14,20,16,0.00) 100%
+  );
+  transition: background 0.65s ease;
+}
+.chale-card:hover .chale-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(14,20,16,0.96) 0%,
+    rgba(14,20,16,0.72) 34%,
+    rgba(14,20,16,0.26) 64%,
+    rgba(14,20,16,0.04) 100%
+  );
+}
+
+.chale-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 1.75rem 1.75rem;
+}
+.chale-main .chale-content { padding: 0 2.4rem 2.4rem; }
+
+.chale-eyebrow {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.53rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.44);
+  margin-bottom: 0.55rem;
+  transition: color 0.45s ease;
+}
+.chale-card:hover .chale-eyebrow { color: rgba(255,255,255,0.68); }
+
+.chale-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.04;
+  color: rgba(255,255,255,0.90);
+  margin: 0 0 0.55rem;
+  transition: color 0.45s ease;
+}
+.chale-main .chale-title { font-size: clamp(1.7rem, 2.4vw, 2.6rem); }
+.chale-sec  .chale-title { font-size: clamp(1.1rem, 1.5vw, 1.6rem); }
+.chale-card:hover .chale-title { color: #fff; }
+
+.chale-desc {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.76rem;
+  line-height: 1.70;
+  color: rgba(255,255,255,0.44);
+  max-width: 380px;
+  margin: 0;
+  transition: color 0.45s ease;
+}
+.chale-main .chale-desc { font-size: 0.85rem; max-width: 440px; }
+.chale-card:hover .chale-desc { color: rgba(255,255,255,0.72); }
+
+.chale-head-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.88s var(--ease-out), transform 0.88s var(--ease-out);
+}
+.chale-head-reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  .chale-mosaic {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 300px 220px 200px;
+    gap: 14px;
+  }
+}
+@media (max-width: 620px) {
+  .chale-mosaic {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 12px;
+  }
+  .chale-wrap.chale-main { grid-row: auto; min-height: 380px; }
+  .chale-wrap { min-height: 230px; }
+  .chale-card { border-radius: 20px; }
+  .chale-content { padding: 0 1.4rem 1.5rem; }
+  .chale-main .chale-content { padding: 0 1.5rem 1.7rem; }
+  .chale-main .chale-title { font-size: 2.1rem; }
+  .chale-sec  .chale-title { font-size: 1.5rem; }
+}
+
+/* ── CHALÉ SUÍTE PRINCIPAL · SLIDESHOW ── */
+.chale-slideshow {
+  position: absolute;
+  inset: 0;
+}
+.chale-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity;
+}
+.chale-slide.is-active { opacity: 1; }
+.chale-slide-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.chale-slide:nth-child(odd).is-active  .chale-slide-img { animation: d2KenIn  9s ease-in-out both; }
+.chale-slide:nth-child(even).is-active .chale-slide-img { animation: d2KenOut 9s ease-in-out both; }
+.chale-dots-main {
+  position: absolute;
+  top: 1.5rem; right: 1.75rem;
+  display: flex; gap: 0.5rem;
+  z-index: 10;
+}
+.chale-dot-main {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.30);
+  border: none; padding: 0; cursor: pointer;
+  transition: background 0.55s var(--ease-out),
+              transform  0.55s var(--ease-spring);
+}
+.chale-dot-main.is-active {
+  background: rgba(255,255,255,0.90);
+  transform: scale(1.5);
+}
+
+/* ═══════════════════════════════════════
+   HERO BOOKING BAR
+═══════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   HERO · base que fica fixa enquanto o
+   Chalé sobe e a cobre naturalmente
+═══════════════════════════════════════ */
+
+/* Hero gruda ao topo da viewport durante o scroll */
+#hero {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* ── Dobras 2, 3 e 4: acima do hero, scroll normal ── */
+#dobra-2,
+#dobra-3,
+#dobra-piscina,
+#passeios-priv {
+  position: relative;
+  z-index: 2;
+}
+
+/* ═══════════════════════════════════════
+   BOOKING POPUP
+═══════════════════════════════════════ */
+#bkPopup {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 22vh 1.5rem 0;
+  background: rgba(6,10,8,0.55);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+#bkPopup.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+#bookingBar {
+  transform: translateY(22px);
+  transition: transform 0.4s var(--ease-spring);
+}
+#bkPopup.is-open #bookingBar { transform: translateY(0); }
+#bookingAnchor { position: relative; }
+.bk-pop { z-index: 920; }
+
+/* ═══════════════════════════════════════
+   DOBRA 2 — ROOM CARD EDITORIAL
+═══════════════════════════════════════ */
+.d2-grid {
+  display: grid;
+  grid-template-columns: 0.80fr 1fr;
+  gap: 4.5rem;
+  align-items: stretch;
+}
+.d2-grid--rev { grid-template-columns: 1fr 0.80fr; }
+.d2-img-wrap { position: relative; min-height: 440px; }
+.d2-img {
+  width: 100%;
+  height: 100%;
+  min-height: 440px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+.d2-slideshow {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 440px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+/* slide wrapper — só controla opacidade */
+.d2-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity;
+}
+.d2-slide.is-active { opacity: 1; }
+
+/* imagem — só controla o Ken Burns */
+.d2-slide-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.d2-slide:nth-child(odd).is-active  .d2-slide-img { animation: d2KenIn  9s ease-in-out both; }
+.d2-slide:nth-child(even).is-active .d2-slide-img { animation: d2KenOut 9s ease-in-out both; }
+
+/* gradient sutil no rodapé para legibilidade dos dots */
+.d2-slideshow::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 90px;
+  background: linear-gradient(to top, rgba(20,28,22,0.50), transparent);
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 0 0 14px 14px;
+}
+
+/* dots de navegação */
+.d2-dots {
+  position: absolute;
+  bottom: 1.2rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 0.55rem;
+  z-index: 2;
+}
+.d2-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.32);
+  border: none; padding: 0; cursor: pointer;
+  transition: background 0.55s var(--ease-out),
+              transform  0.55s var(--ease-spring);
+}
+.d2-dot.is-active {
+  background: rgba(255,255,255,0.92);
+  transform: scale(1.5);
+}
+.d2-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.d2-amenities {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.1rem 2rem;
+  border-top: 1px solid var(--c-s300);
+  padding-top: 1.75rem;
+  margin-top: 0.25rem;
+}
+.d2-amenity {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+@media (max-width: 900px) {
+  .d2-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .d2-img,
+  .d2-slideshow { min-height: 300px; height: 300px; }
+  .dep-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Depoimentos ── */
+.dep-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.dep-card {
+  background: var(--c-cream);
+  border: 1px solid #ece9e3;
+  border-radius: 4px;
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  transition: box-shadow 0.35s ease, transform 0.35s var(--ease-out);
+}
+.dep-card:hover {
+  box-shadow: 0 8px 32px rgba(44,62,53,0.09);
+  transform: translateY(-3px);
+}
+.dep-quote-mark { color: var(--c-pine); opacity: 0.26; }
+.dep-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.05rem;
+  line-height: 1.78;
+  color: var(--c-pine-deep);
+  margin: 0;
+  flex-grow: 1;
+}
+.dep-sep { width: 28px; height: 1px; background: var(--c-pine); opacity: 0.2; }
+.dep-name {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--c-pine-deep);
+  margin-bottom: 0.2rem;
+}
+.dep-origin {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-s400);
+}
+.dep-stars { display: flex; gap: 3px; color: #C9A96E; margin-top: auto; }
+
+
+/* ══════════════════════════════════════════════════════
+   CTA FINAL + FOOTER INTEGRADO
+   Seção de encerramento: imagem parallax → headline → footer
+══════════════════════════════════════════════════════ */
+
+/* ─── CTA SECTION ─── */
+.cta-section {
+  position: relative;
+  z-index: 3;
+  margin-top: -180px;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+  background: #0d1a12;
+}
+.cta-bg {
+  position: absolute;
+  inset: -12%;
+  background: url('Solar do Espinhaço — Design System/assets/images/serra-hero.avif') center / cover no-repeat;
+  will-change: transform;
+  transform: scale(1.12) translateY(0);
+  transition: transform 0.05s linear;
+}
+.cta-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg,
+      rgba(13,26,18,0.22)  0%,
+      rgba(13,26,18,0.36) 22%,
+      rgba(13,26,18,0.55) 42%,
+      rgba(13,26,18,0.78) 57%,
+      rgba(6,13,9,0.95)   68%,
+      rgba(6,13,9,1.00)   74%
+    ),
+    radial-gradient(ellipse 80% 55% at 50% 30%, transparent 0%, rgba(13,26,18,0.35) 100%);
+}
+.cta-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 100% at   0% 50%, rgba(13,26,18,0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 100% at 100% 50%, rgba(13,26,18,0.55) 0%, transparent 70%);
+  pointer-events: none;
+}
+/* Gradiente de entrada: funde a seção anterior com a imagem */
+.cta-top-rule {
+  position: absolute;
+  top: 180px; left: 0; right: 0; /* alinhada ao início visual da seção (após o overlap) */
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--c-gold), transparent);
+  opacity: 0.45;
+}
+
+/* ─── CTA INNER CONTENT ─── */
+.cta-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2.5rem 2rem 1.25rem;
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cta-eyebrow {
+  display: flex; align-items: center; justify-content: center; gap: 1.1rem;
+  margin-bottom: 3rem;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+.cta-eyebrow.is-visible { opacity: 1; transform: translateY(0); }
+.cta-eyebrow-line { width: 44px; height: 1px; background: var(--c-gold); opacity: 0.55; }
+.cta-eyebrow-text {
+  font-family: var(--font-sans); font-size: 0.50rem; font-weight: 500;
+  letter-spacing: 0.38em; text-transform: uppercase; color: var(--c-gold);
+}
+.cta-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(3.2rem, 6.5vw, 6rem);
+  font-weight: 300; letter-spacing: -0.025em; line-height: 1.04;
+  color: rgba(255,255,255,0.95); margin-bottom: 2rem;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 1.15s var(--ease-out) 0.12s, transform 1.15s var(--ease-out) 0.12s;
+}
+.cta-headline.is-visible { opacity: 1; transform: translateY(0); }
+.cta-headline em { font-style: italic; font-weight: 300; color: var(--c-gold-lt); }
+.cta-sub {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-weight: 300; font-style: italic;
+  color: rgba(255,255,255,0.62); line-height: 1.7; max-width: 560px;
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 1s var(--ease-out) 0.24s, transform 1s var(--ease-out) 0.24s;
+}
+.cta-sub.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ─── FOOTER INTEGRADO ─── */
+.cta-footer-integrated {
+  position: relative; z-index: 2; width: 100%;
+  border-top: 1px solid rgba(201,169,110,0.12);
+  background: transparent;
+}
+.cfi-main {
+  max-width: 90rem; margin: 0 auto; padding: 2rem 2.5rem;
+  display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 3.5rem;
+}
+.cfi-brand { display: flex; flex-direction: column; }
+.cfi-logo-wrap { display: flex; align-items: center; margin-bottom: 1.4rem; }
+.cfi-tagline {
+  font-family: var(--font-sans); font-size: 0.70rem; font-weight: 300;
+  color: rgba(255,255,255,0.6); line-height: 1.7; max-width: 300px; margin-bottom: 1.5rem;
+}
+.cfi-social-icons { display: flex; gap: 0.75rem; }
+.cfi-social-icons a {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.18); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.7); text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.cfi-social-icons a:hover {
+  background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.38); color: #fff;
+}
+.cfi-nav-title {
+  display: block; font-family: var(--font-sans); font-size: 0.65rem;
+  font-weight: 600; letter-spacing: 0.30em; text-transform: uppercase;
+  color: var(--c-gold); margin-bottom: 1.4rem;
+}
+.cfi-nav ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.cfi-nav ul li a,
+.cfi-nav ul li span {
+  font-family: var(--font-sans); font-size: 0.68rem; font-weight: 300;
+  color: rgba(255,255,255,0.6); text-decoration: none; line-height: 1.5;
+  display: inline-flex; align-items: center; gap: 0.3rem; transition: color 0.3s ease;
+}
+.cfi-nav ul li a:hover { color: #fff; }
+
+/* ─── COPYRIGHT BAR ─── */
+.cfi-bottom { width: 100%; background: #060d09; border-top: 1px solid rgba(255,255,255,0.06); }
+.cfi-bottom-inner {
+  max-width: 90rem; margin: 0 auto; padding: 1.25rem 2.5rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+}
+.cfi-copy { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 300; color: rgba(255,255,255,0.22); letter-spacing: 0.04em; }
+.cfi-legal { display: flex; gap: 1.75rem; }
+.cfi-legal a { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 300; color: rgba(255,255,255,0.3); text-decoration: none; letter-spacing: 0.04em; transition: color 0.25s; }
+.cfi-legal a:hover { color: rgba(255,255,255,0.65); }
+
+/* ─── RESPONSIVO ─── */
+@media (max-width: 640px) {
+  .cta-headline { font-size: clamp(2.6rem, 9vw, 3.5rem); }
+  .cta-sub      { font-size: 1.05rem; }
+  .cta-inner    { padding: 3rem 1.5rem 1.25rem; }
+}
+@media (max-width: 960px) { .cfi-main { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+@media (max-width: 600px) { .cfi-main { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+</style>
+</head>
+<body class="bg-stone-50 text-stone-600 antialiased">
+
+<!-- ═══════════════════════════════════════════════════
+     TOP NAV (Jamaican Scape pattern)
+═══════════════════════════════════════════════════ -->
+<nav class="nav-top" id="siteNav">
+  <div class="nav-top-inner">
+
+    <!-- Esquerda: hamburger + menu inline -->
+    <div class="nav-menu-zone" id="menuZone">
+      <button class="nav-burger" id="menuBurger"
+              aria-label="Abrir menu" aria-expanded="false" aria-controls="siteMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-menu" id="siteMenu" aria-label="Menu">
+        <ul class="site-menu-list">
+          <li class="site-menu-item"><a href="#dobra-2">Suíte</a></li>
+          <li class="site-menu-item"><a href="#dobra-3">Sala</a></li>
+          <li class="site-menu-item"><a href="#dobra-piscina">Piscina</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Centro: logotipo tipográfico -->
+    <a href="#hero" aria-label="Ir para o início" id="navLogoGroup" onclick="event.preventDefault(); window.scrollTo({top:0, behavior:'smooth'});" style="display:flex; align-items:center; justify-content:center; white-space:nowrap; text-decoration:none; cursor:pointer; transition:opacity 0.3s ease;" onmouseenter="this.style.opacity='0.75'" onmouseleave="this.style.opacity='1'">
+      <!-- Ícone folha em disco -->
+      <div id="navLogoDisc" style="position:relative; width:33px; height:33px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+        <div style="position:absolute; inset:0; border-radius:50%; border:1px solid rgba(255,255,255,0.48);"></div>
+        <iconify-icon icon="solar:leaf-linear" width="19" style="color:rgba(255,255,255,0.88);"></iconify-icon>
+      </div>
+      <!-- Divider + Wordmark — expande durante animação -->
+      <div id="navLogoExpand" style="display:flex; align-items:center; max-width:0; overflow:hidden; opacity:0;">
+        <div style="width:1px; height:33px; background:rgba(255,255,255,0.18); flex-shrink:0; margin-left:13px;"></div>
+        <div id="navLogoWordmark" style="margin-left:13px; transform:translateX(-10px);">
+          <div style="font-family:'Inter',sans-serif; font-weight:400; font-size:8.5px; letter-spacing:0.38em; text-transform:uppercase; color:rgba(255,255,255,0.60); line-height:1; text-shadow:0 1px 8px rgba(0,0,0,0.55);">Solar do</div>
+          <div style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:22px; letter-spacing:0.08em; text-transform:uppercase; line-height:1; color:rgba(255,255,255,0.93); margin-top:4px; text-shadow:0 2px 12px rgba(0,0,0,0.40);">Espinhaço</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Direita: idioma inline + reservar -->
+    <div id="navRight" style="display:flex; align-items:center; justify-content:flex-end; gap:1.5rem;">
+
+      <!-- PT EN ES inline -->
+      <div class="lang-inline">
+        <button class="lang-inline-btn active" data-lang="pt" onclick="setLang('pt')">PT</button>
+        <button class="lang-inline-btn"        data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-inline-btn"        data-lang="es" onclick="setLang('es')">ES</button>
+      </div>
+
+      <!-- Botão Reservar em vidro -->
+      <button id="navReserveBtn" onclick="openBkPopup(event)"
+         style="display:inline-flex;align-items:center;gap:0.45rem;
+                background:rgba(255,255,255,0.10);
+                backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+                border:1px solid rgba(255,255,255,0.22);border-radius:999px;
+                padding:0.52rem 1.15rem;
+                font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+                color:#fff;cursor:pointer;white-space:nowrap;
+                transition:background 0.3s ease,border-color 0.3s ease,transform 0.3s var(--ease-spring);">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        Reservar
+      </button>
+    </div>
+
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════
+     HERO · fica fixo enquanto o Chalé sobe por cima
+═══════════════════════════════════════════════════ -->
+<section id="hero" class="relative h-screen w-full overflow-hidden bg-stone-900">
+
+  <!-- Background image -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="Solar do Espinhaço — Design System/assets/images/serra-hero.avif"
+      alt="Solar do Espinhaço | Lapinha da Serra"
+      class="w-full h-full object-cover opacity-55 scale-105"
+      style="animation: pulse 14s ease-in-out infinite;"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/35 via-transparent to-transparent"></div>
+  </div>
+
+  <!-- Ambient orbs -->
+  <div class="hero-orb" style="width:560px;height:560px;top:-120px;right:-80px;
+    background:radial-gradient(circle,rgba(44,62,53,0.4) 0%,transparent 70%);
+    animation:orb1 20s ease-in-out infinite;"></div>
+  <div class="hero-orb" style="width:420px;height:420px;bottom:40px;left:-90px;
+    background:radial-gradient(circle,rgba(44,62,53,0.28) 0%,transparent 70%);
+    animation:orb2 24s ease-in-out infinite;"></div>
+  <div class="hero-orb" style="width:320px;height:320px;top:38%;right:22%;
+    background:radial-gradient(circle,rgba(255,255,255,0.04) 0%,transparent 70%);
+    animation:glowPulse 10s ease-in-out infinite;"></div>
+
+  <!-- Main grid -->
+  <div class="relative z-10 h-full max-w-7xl mx-auto px-6 pt-28 pb-48 flex flex-col justify-center">
+
+    <!-- Center block: transparent text hero (Jamaican Scape signature) -->
+    <div class="flex flex-col lg:flex-row items-start lg:items-end gap-10">
+      <div class="flex-1">
+        <div id="heroTitle" style="animation: fadeIn 1.2s 0.3s ease both; opacity:0; animation-fill-mode:both;">
+          <span class="block text-[10px] tracking-[0.32em] uppercase mb-5 pl-1"
+                style="color:rgba(255,255,255,0.55); text-shadow:0 1px 8px rgba(0,0,0,0.7);">
+            Chalé Boutique · Lapinha da Serra · Minas Gerais
+          </span>
+          <!-- mix-blend-overlay = o lettering "transparente" do Jamaican Scape -->
+          <h1 class="leading-[0.82] tracking-tighter mix-blend-overlay" style="font-family:var(--font-serif);">
+            <span class="block text-white font-medium"
+                  style="font-size:clamp(3.6rem,9vw,7.8rem);">SOLAR DO</span>
+            <span class="block text-stone-100 font-light opacity-88"
+                  style="font-size:clamp(2rem,4.5vw,4rem); margin-left:clamp(2rem,6vw,7rem);">
+              ESPINHAÇO
+            </span>
+          </h1>
+        </div>
+        <div style="animation: fadeUp 1s 0.55s ease both; opacity:0; animation-fill-mode:both;">
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Frase — surge após o título sumir -->
+  <div id="heroPhrase">
+    <p>O espinhaço te conecta com a natureza.</p>
+  </div>
+
+  <!-- Scroll indicator — centralizado -->
+  <div id="heroScroll" class="hidden md:flex flex-col items-center gap-2"
+       style="position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+              animation: fadeIn 2s 1.8s ease both; opacity:0; animation-fill-mode:both;
+              transition: opacity 1s ease;">
+    <span class="text-[9px] uppercase tracking-[0.28em]"
+          style="color:rgba(255,255,255,0.65); text-shadow:0 1px 6px rgba(0,0,0,0.5);">Explorar</span>
+    <div class="flex flex-col items-center gap-1" style="animation: bounce 2s infinite;">
+      <div class="h-8 w-[1px]" style="background:linear-gradient(to bottom, rgba(255,255,255,0.55), transparent);"></div>
+      <iconify-icon icon="solar:alt-arrow-down-linear" width="12" style="color:rgba(255,255,255,0.55);"></iconify-icon>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     2ª DOBRA — ROOM CARD EDITORIAL
+═══════════════════════════════════════════════════ -->
+<section id="dobra-2" style="padding:6.5rem 0 7.5rem; background:var(--c-cream);">
+  <div style="max-width:90rem; margin:0 auto; padding:0 2.5rem;">
+
+    <!-- Cabeçalho editorial -->
+    <header class="chale-head-reveal"
+            style="margin-bottom:3.75rem; display:flex; flex-wrap:wrap;
+                   align-items:flex-end; justify-content:space-between; gap:2rem;">
+      <div>
+        <div style="display:flex; align-items:center; gap:0.9rem; margin-bottom:1.35rem;">
+          <div style="width:30px; height:1px; background:var(--c-pine); opacity:0.32;"></div>
+          <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                       letter-spacing:0.30em; text-transform:uppercase; color:var(--c-pine-mid);">
+            Ambientes · Chalé Boutique
+          </span>
+        </div>
+        <h2 style="font-family:var(--font-serif); font-size:clamp(2rem,3.6vw,3.2rem);
+                   font-weight:400; letter-spacing:-0.02em; color:var(--c-pine-deep);
+                   margin:0; line-height:1.07;">
+          Conforto que respira,<br>
+          <em style="font-style:italic; font-weight:300; color:var(--c-s500);">natureza que abraça</em>
+        </h2>
+      </div>
+    </header>
+
+    <div class="d2-grid reveal">
+
+      <!-- Coluna esquerda: slideshow -->
+      <div class="d2-img-wrap">
+        <div class="d2-slideshow">
+          <div class="d2-slide is-active">
+            <img class="d2-slide-img"
+                 src="Solar do Espinhaço — Design System/assets/images/Suite.jpeg"
+                 alt="Suíte — Solar do Espinhaço" />
+          </div>
+          <div class="d2-slide">
+            <img class="d2-slide-img"
+                 src="Solar do Espinhaço — Design System/assets/images/Suíte 2.png"
+                 alt="Suíte 2 — Solar do Espinhaço" />
+          </div>
+          <div class="d2-slide">
+            <img class="d2-slide-img"
+                 src="Solar do Espinhaço — Design System/assets/images/Suíte 3.png"
+                 alt="Suíte 3 — Solar do Espinhaço" />
+          </div>
+          <div class="d2-dots">
+            <button class="d2-dot is-active" aria-label="Slide 1"></button>
+            <button class="d2-dot" aria-label="Slide 2"></button>
+            <button class="d2-dot" aria-label="Slide 3"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna direita: conteúdo -->
+      <div class="d2-content">
+
+        <!-- Eyebrow -->
+        <div style="display:flex; align-items:center; gap:0.85rem; margin-bottom:1.75rem;">
+          <span style="font-family:var(--font-sans); font-size:0.65rem; font-weight:400;
+                       letter-spacing:0.12em; color:var(--c-s400);">01</span>
+          <div style="width:36px; height:1px; background:var(--c-s300);"></div>
+        </div>
+
+        <!-- Título -->
+        <h2 style="font-family:var(--font-serif); font-size:clamp(1.35rem,2.1vw,1.9rem);
+                   font-weight:400; letter-spacing:-0.01em; color:var(--c-pine-deep);
+                   margin:0 0 1.4rem; line-height:1.1;">
+          Suíte
+        </h2>
+
+        <!-- Parágrafo -->
+        <p style="font-family:var(--font-sans); font-weight:300; font-size:0.9rem;
+                  line-height:1.85; color:var(--c-s500); margin:0 0 1.75rem; padding-right:4rem;">
+          A suíte é um refúgio de linhas serenas e materiais nobres, onde o desenho do espaço privilegia
+          o descanso e a vista para a Serra do Espinhaço. Cada elemento foi selecionado para oferecer
+          conforto duradouro e uma estadia em absoluta tranquilidade.
+          <br><br>
+          O banheiro, revestido em pedra natural e com acabamentos precisos, traduz a atmosfera de um spa
+          privativo. Um espaço concebido para transformar o banho em um momento de bem-estar e contemplação.
+        </p>
+
+        <!-- Comodidades -->
+        <div class="d2-amenities" style="grid-template-columns:repeat(3,1fr); gap:0.9rem 1.25rem;">
+
+          <!-- 01 · Quarto 28 m² -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <rect x="3.5" y="3.5" width="13" height="13" rx="0.75"/>
+              <line x1="3.5" y1="19.5" x2="16.5" y2="19.5"/>
+              <polyline points="5 18 3.5 19.5 5 21"/>
+              <polyline points="15 18 16.5 19.5 15 21"/>
+              <line x1="20" y1="3.5" x2="20" y2="16.5"/>
+              <polyline points="18.5 5 20 3.5 21.5 5"/>
+              <polyline points="18.5 15 20 16.5 21.5 15"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Quarto 28 m²</span>
+          </div>
+
+          <!-- 02 · Vista Panorâmica -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <path d="M2 20.5 L8.5 9 L13 16 L16.5 11 L22 20.5Z"/>
+              <circle cx="19.5" cy="6" r="2"/>
+              <line x1="17.5" y1="7.4" x2="15" y2="10.5"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Vista Panorâmica</span>
+          </div>
+
+          <!-- 03 · Ar Quente e Frio -->
+          <div class="d2-amenity">
+            <iconify-icon icon="solar:snowflake-linear" width="15" style="color:var(--c-s500); flex-shrink:0;"></iconify-icon>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Ar Quente e Frio</span>
+          </div>
+
+          <!-- 04 · Banheira de Imersão -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <path d="M3.5 10 Q3.5 7.5 7 7 L17 7 Q20.5 7.5 20.5 10 L20.5 17 Q20.5 19.5 12 19.5 Q3.5 19.5 3.5 17 Z"/>
+              <path d="M3.5 10 Q3.5 8.5 7 8.5 L17 8.5 Q20.5 8.5 20.5 10"/>
+              <line x1="10" y1="7" x2="10" y2="5"/>
+              <path d="M10 5 Q10 4 11.5 4 L13 4"/>
+              <path d="M13 4 Q14.5 4 14.5 5 L14.5 7"/>
+              <line x1="7" y1="19.5" x2="6" y2="22"/>
+              <line x1="17" y1="19.5" x2="18" y2="22"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Banheira de Imersão</span>
+          </div>
+
+          <!-- 05 · Cama King Size -->
+          <div class="d2-amenity">
+            <iconify-icon icon="solar:bed-linear" width="15" style="color:var(--c-s500); flex-shrink:0;"></iconify-icon>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Cama King Size</span>
+          </div>
+
+          <!-- 06 · Roupa de Cama 600 Fios -->
+          <div class="d2-amenity">
+            <iconify-icon icon="solar:layers-minimalistic-linear" width="15" style="color:var(--c-s500); flex-shrink:0;"></iconify-icon>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Roupa de Cama 600 Fios</span>
+          </div>
+
+          <!-- 07 · Smart TV 4K -->
+          <div class="d2-amenity">
+            <iconify-icon icon="solar:tv-linear" width="15" style="color:var(--c-s500); flex-shrink:0;"></iconify-icon>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Smart TV 55'</span>
+          </div>
+
+          <!-- 08 · Soundbar -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <rect x="1.5" y="9.5" width="21" height="5" rx="2.5"/>
+              <circle cx="4" cy="12" r="0.5" fill="currentColor" stroke="none"/>
+              <circle cx="8" cy="12" r="0.65" fill="currentColor" stroke="none"/>
+              <circle cx="10.5" cy="12" r="0.65" fill="currentColor" stroke="none"/>
+              <circle cx="13" cy="12" r="0.65" fill="currentColor" stroke="none"/>
+              <circle cx="15.5" cy="12" r="0.65" fill="currentColor" stroke="none"/>
+              <circle cx="20" cy="12" r="1.5"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Soundbar</span>
+          </div>
+
+          <!-- 09 · Streaming -->
+          <div class="d2-amenity">
+            <iconify-icon icon="solar:play-circle-linear" width="15" style="color:var(--c-s500); flex-shrink:0;"></iconify-icon>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Streaming</span>
+          </div>
+
+          <!-- 10 · Closet & Roupão -->
+          <div class="d2-amenity">
+            <iconify-icon icon="solar:hanger-linear" width="15" style="color:var(--c-s500); flex-shrink:0;"></iconify-icon>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Closet &amp; Roupão</span>
+          </div>
+
+          <!-- 11 · Toalhas Algodão Egípcio -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <line x1="3" y1="4" x2="21" y2="4"/>
+              <path d="M7 4 L7 7 L17 7 L17 4"/>
+              <rect x="7" y="7" width="10" height="14" rx="1.5"/>
+              <line x1="9.5" y1="12" x2="14.5" y2="12"/>
+              <line x1="9.5" y1="15" x2="14.5" y2="15"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Toalhas Algodão Egípcio</span>
+          </div>
+
+          <!-- 12 · Ducha Dupla -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <line x1="6" y1="2" x2="6" y2="5.5"/>
+              <line x1="18" y1="2" x2="18" y2="5.5"/>
+              <rect x="3" y="5.5" width="6" height="2.5" rx="1"/>
+              <rect x="15" y="5.5" width="6" height="2.5" rx="1"/>
+              <line x1="4.5" y1="10.5" x2="4.5" y2="13"/>
+              <line x1="6" y1="11.5" x2="6" y2="14"/>
+              <line x1="7.5" y1="10.5" x2="7.5" y2="13"/>
+              <line x1="16.5" y1="10.5" x2="16.5" y2="13"/>
+              <line x1="18" y1="11.5" x2="18" y2="14"/>
+              <line x1="19.5" y1="10.5" x2="19.5" y2="13"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Ducha Dupla</span>
+          </div>
+
+          <!-- 13 · Box até o Teto -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <line x1="3" y1="2" x2="21" y2="2"/>
+              <line x1="3" y1="22" x2="21" y2="22"/>
+              <line x1="3" y1="2" x2="3" y2="22"/>
+              <line x1="21" y1="2" x2="21" y2="22"/>
+              <line x1="12" y1="2" x2="12" y2="22" stroke-dasharray="3 2"/>
+              <line x1="7" y1="2" x2="7" y2="7"/>
+              <rect x="4.5" y="7" width="7" height="2.5" rx="1"/>
+              <line x1="6" y1="12" x2="6" y2="14.5"/>
+              <line x1="8" y1="11" x2="8" y2="13.5"/>
+              <line x1="10" y1="12" x2="10" y2="14.5"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Box até o Teto</span>
+          </div>
+
+        </div><!-- /.d2-amenities -->
+
+      </div><!-- /.d2-content -->
+
+    </div><!-- /.d2-grid -->
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     3ª DOBRA
+═══════════════════════════════════════════════════ -->
+<section id="dobra-3" style="padding:0.5rem 0 7.5rem; background:var(--c-cream);">
+  <div style="max-width:90rem; margin:0 auto; padding:0 2.5rem;">
+
+    <div class="d2-grid d2-grid--rev reveal">
+
+      <!-- Coluna esquerda: conteúdo -->
+      <div class="d2-content">
+
+        <!-- Eyebrow -->
+        <div style="display:flex; align-items:center; gap:0.85rem; margin-bottom:1.75rem;">
+          <span style="font-family:var(--font-sans); font-size:0.65rem; font-weight:400;
+                       letter-spacing:0.12em; color:var(--c-s400);">02</span>
+          <div style="width:36px; height:1px; background:var(--c-s300);"></div>
+        </div>
+
+        <!-- Título -->
+        <h2 style="font-family:var(--font-serif); font-size:clamp(1.35rem,2.1vw,1.9rem);
+                   font-weight:400; letter-spacing:-0.01em; color:var(--c-pine-deep);
+                   margin:0 0 1.4rem; line-height:1.1;">
+          Sala Integrada
+        </h2>
+
+        <!-- Parágrafo -->
+        <p style="font-family:var(--font-sans); font-weight:300; font-size:0.875rem;
+                  line-height:1.78; color:var(--c-s500); margin:0 0 1.75rem; padding-right:3rem;">
+          A sala com cozinha integrada foi pensada como o coração da estadia: um ambiente
+          fluido, de marcenaria sob medida e madeiras nobres, onde os espaços conversam
+          entre si. Portas de correr abrem o ambiente por completo para o deck, e a
+          Cordilheira do Espinhaço passa a fazer parte da sala — do preparo de uma
+          refeição ao descanso no fim do dia.
+        </p>
+
+        <!-- Comodidades -->
+        <div class="d2-amenities" style="grid-template-columns:repeat(3,1fr); gap:0.9rem 1.25rem;">
+
+          <!-- 01 · Sala Integrada 26 m² -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <rect x="6" y="6" width="12" height="12" rx="0.5"/>
+              <rect x="8" y="12" width="5" height="3.5" rx="0.4"/>
+              <rect x="8" y="10.5" width="5" height="1.5" rx="0.4"/>
+              <circle cx="15" cy="13.5" r="1.5"/>
+              <line x1="6" y1="6" x2="3" y2="3"/>
+              <polyline points="5.5 3 3 3 3 5.5"/>
+              <line x1="18" y1="6" x2="21" y2="3"/>
+              <polyline points="18.5 3 21 3 21 5.5"/>
+              <line x1="6" y1="18" x2="3" y2="21"/>
+              <polyline points="5.5 21 3 21 3 18.5"/>
+              <line x1="18" y1="18" x2="21" y2="21"/>
+              <polyline points="18.5 21 21 21 21 18.5"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Sala 26 m²</span>
+          </div>
+
+          <!-- 02 · Cozinha Completa -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="1.5"/>
+              <line x1="2.5" y1="12" x2="21.5" y2="12"/>
+              <circle cx="8" cy="7.5" r="2.5"/>
+              <circle cx="8" cy="7.5" r="1" fill="currentColor" stroke="none"/>
+              <circle cx="16" cy="7.5" r="2.5"/>
+              <circle cx="16" cy="7.5" r="1" fill="currentColor" stroke="none"/>
+              <rect x="5.5" y="13.5" width="13" height="6.5" rx="1"/>
+              <line x1="8" y1="15" x2="16" y2="15"/>
+              <rect x="7.5" y="16.5" width="9" height="3" rx="0.5"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Cozinha Completa</span>
+          </div>
+
+          <!-- 03 · Sofá Cama -->
+          <div class="d2-amenity">
+            <iconify-icon icon="solar:sofa-linear" width="15" style="color:var(--c-s500); flex-shrink:0;"></iconify-icon>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Sofá Cama</span>
+          </div>
+
+          <!-- 03 · Smart TV 65' -->
+          <div class="d2-amenity">
+            <iconify-icon icon="solar:tv-linear" width="15" style="color:var(--c-s500); flex-shrink:0;"></iconify-icon>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Smart TV 65'</span>
+          </div>
+
+          <!-- 04 · Soundbar -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <rect x="1.5" y="9.5" width="21" height="5" rx="2.5"/>
+              <circle cx="4" cy="12" r="0.5" fill="currentColor" stroke="none"/>
+              <circle cx="8" cy="12" r="0.65" fill="currentColor" stroke="none"/>
+              <circle cx="10.5" cy="12" r="0.65" fill="currentColor" stroke="none"/>
+              <circle cx="13" cy="12" r="0.65" fill="currentColor" stroke="none"/>
+              <circle cx="15.5" cy="12" r="0.65" fill="currentColor" stroke="none"/>
+              <circle cx="20" cy="12" r="1.5"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Soundbar</span>
+          </div>
+
+          <!-- 05 · Streaming -->
+          <div class="d2-amenity">
+            <iconify-icon icon="solar:play-circle-linear" width="15" style="color:var(--c-s500); flex-shrink:0;"></iconify-icon>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Streaming</span>
+          </div>
+
+          <!-- 06 · Echo Show -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <rect x="2" y="3" width="20" height="14" rx="1.5"/>
+              <circle cx="12" cy="5" r="0.75" fill="currentColor" stroke="none"/>
+              <circle cx="12" cy="11" r="3.5"/>
+              <path d="M9.5 11 Q9.5 8.5 12 8.5 Q14.5 8.5 14.5 11"/>
+              <path d="M7 17 L5.5 22 L18.5 22 L17 17"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Echo Show</span>
+          </div>
+
+          <!-- 07 · Robot Vacuum -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <circle cx="12" cy="13" r="9"/>
+              <path d="M5.5 7.5 Q12 4.5 18.5 7.5"/>
+              <line x1="7.5" y1="8.2" x2="16.5" y2="8.2"/>
+              <circle cx="12" cy="14" r="2.5"/>
+              <line x1="3.5" y1="18" x2="2" y2="16"/>
+              <line x1="3.5" y1="18" x2="2.5" y2="20"/>
+              <line x1="3.5" y1="18" x2="5.5" y2="19.5"/>
+              <line x1="20.5" y1="18" x2="22" y2="16"/>
+              <line x1="20.5" y1="18" x2="21.5" y2="20"/>
+              <line x1="20.5" y1="18" x2="18.5" y2="19.5"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Robot Vacuum</span>
+          </div>
+
+          <!-- 08 · Vista Panorâmica -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <path d="M2 20.5 L8.5 9 L13 16 L16.5 11 L22 20.5Z"/>
+              <circle cx="19.5" cy="6" r="2"/>
+              <line x1="17.5" y1="7.4" x2="15" y2="10.5"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Vista Panorâmica</span>
+          </div>
+
+        </div><!-- /.d2-amenities -->
+
+      </div><!-- /.d2-content -->
+
+      <!-- Coluna direita: slideshow sala -->
+      <div class="d2-img-wrap">
+        <div class="d2-slideshow">
+          <div class="d2-slide is-active">
+            <img class="d2-slide-img"
+                 src="Solar do Espinhaço — Design System/assets/images/Sala + Cozinha.png"
+                 alt="Sala integrada — Solar do Espinhaço" />
+          </div>
+          <div class="d2-slide">
+            <img class="d2-slide-img"
+                 src="Solar do Espinhaço — Design System/assets/images/Sala.png"
+                 alt="Sala — Solar do Espinhaço" />
+          </div>
+          <div class="d2-slide">
+            <img class="d2-slide-img"
+                 src="Solar do Espinhaço — Design System/assets/images/Sala 2.png"
+                 alt="Sala 2 — Solar do Espinhaço" />
+          </div>
+          <div class="d2-dots">
+            <button class="d2-dot is-active" aria-label="Slide 1"></button>
+            <button class="d2-dot" aria-label="Slide 2"></button>
+            <button class="d2-dot" aria-label="Slide 3"></button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.d2-grid -->
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     DOBRA — PISCINA E DECK
+═══════════════════════════════════════════════════ -->
+<section id="dobra-piscina" style="padding:0.5rem 0 7.5rem; background:var(--c-cream);">
+  <div style="max-width:90rem; margin:0 auto; padding:0 2.5rem;">
+
+    <div class="d2-grid reveal">
+
+      <!-- Coluna esquerda: slideshow -->
+      <div class="d2-img-wrap">
+        <div class="d2-slideshow">
+          <div class="d2-slide is-active">
+            <img class="d2-slide-img"
+                 src="Solar do Espinhaço — Design System/assets/images/Piscina.jpeg"
+                 alt="Piscina — Solar do Espinhaço" />
+          </div>
+          <div class="d2-slide">
+            <img class="d2-slide-img"
+                 src="Solar do Espinhaço — Design System/assets/images/Frente Dia 3.png"
+                 alt="Deck — Solar do Espinhaço" />
+          </div>
+          <div class="d2-slide">
+            <img class="d2-slide-img"
+                 src="Solar do Espinhaço — Design System/assets/images/Frente Noite 2.png"
+                 alt="Piscina noturna — Solar do Espinhaço" />
+          </div>
+          <div class="d2-dots">
+            <button class="d2-dot is-active" aria-label="Slide 1"></button>
+            <button class="d2-dot" aria-label="Slide 2"></button>
+            <button class="d2-dot" aria-label="Slide 3"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna direita: conteúdo -->
+      <div class="d2-content">
+
+        <!-- Eyebrow -->
+        <div style="display:flex; align-items:center; gap:0.85rem; margin-bottom:1.75rem;">
+          <span style="font-family:var(--font-sans); font-size:0.65rem; font-weight:400;
+                       letter-spacing:0.12em; color:var(--c-s400);">03</span>
+          <div style="width:36px; height:1px; background:var(--c-s300);"></div>
+        </div>
+
+        <!-- Título -->
+        <h2 style="font-family:var(--font-serif); font-size:clamp(1.35rem,2.1vw,1.9rem);
+                   font-weight:400; letter-spacing:-0.01em; color:var(--c-pine-deep);
+                   margin:0 0 1.4rem; line-height:1.1;">
+          Piscina e Deck
+        </h2>
+
+        <!-- Parágrafo -->
+        <p style="font-family:var(--font-sans); font-weight:300; font-size:0.9rem;
+                  line-height:1.85; color:var(--c-s500); margin:0 0 1.75rem; padding-right:4rem;">
+          A área externa é onde a hospedagem encontra a paisagem. Sob o pergolado envidraçado,
+          o deck em cumaru convida à permanência em qualquer estação — do almoço ao ar livre
+          às noites de inverno junto ao calor do fogo. Poucos passos adiante, a piscina de
+          borda infinita aquecida se desenha em frente à serra, dissolvendo o limite entre
+          a água e o horizonte.
+        </p>
+
+        <!-- Comodidades -->
+        <div class="d2-amenities" style="grid-template-columns:repeat(3,1fr); gap:0.9rem 1.25rem;">
+
+          <!-- 01 · Piscina Aquecida -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <path d="M2 16 Q5 13 8 16 Q11 19 14 16 Q17 13 22 16"/>
+              <path d="M2 12 Q5 9 8 12 Q11 15 14 12 Q17 9 22 12"/>
+              <path d="M8 5 Q8 3 10 3 L14 3 Q16 3 16 5 L16 9"/>
+              <line x1="8" y1="9" x2="16" y2="9"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Piscina Aquecida</span>
+          </div>
+
+          <!-- 02 · Deck de Madeira -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <rect x="2" y="14" width="20" height="3" rx="0.5"/>
+              <line x1="5" y1="14" x2="5" y2="22"/>
+              <line x1="9" y1="14" x2="9" y2="22"/>
+              <line x1="13" y1="14" x2="13" y2="22"/>
+              <line x1="17" y1="14" x2="17" y2="22"/>
+              <line x1="19" y1="14" x2="19" y2="22"/>
+              <line x1="2" y1="17" x2="22" y2="17"/>
+              <line x1="2" y1="20" x2="22" y2="20"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Deck de Madeira</span>
+          </div>
+
+          <!-- 03 · Vista Panorâmica -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <path d="M2 20.5 L8.5 9 L13 16 L16.5 11 L22 20.5Z"/>
+              <circle cx="19.5" cy="6" r="2"/>
+              <line x1="17.5" y1="7.4" x2="15" y2="10.5"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Vista Panorâmica</span>
+          </div>
+
+          <!-- 04 · Espreguiçadeiras -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <circle cx="17" cy="4" r="1.5"/>
+              <path d="M3 14 L8 10 L13 13 L18 9"/>
+              <line x1="3" y1="14" x2="3" y2="20"/>
+              <line x1="18" y1="9" x2="20" y2="20"/>
+              <line x1="3" y1="17" x2="20" y2="17"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Espreguiçadeiras</span>
+          </div>
+
+          <!-- 05 · Iluminação Noturna -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <path d="M12 2 Q7 6 7 11 A5 5 0 0 0 17 11 Q17 6 12 2Z"/>
+              <line x1="9" y1="17" x2="15" y2="17"/>
+              <line x1="10" y1="20" x2="14" y2="20"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Iluminação Noturna</span>
+          </div>
+
+          <!-- 06 · Área Privativa -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <rect x="3" y="11" width="18" height="11" rx="1.5"/>
+              <path d="M7 11 L7 7 Q7 3 12 3 Q17 3 17 7 L17 11"/>
+              <circle cx="12" cy="16.5" r="1.5"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Área Privativa</span>
+          </div>
+
+          <!-- 07 · Toalhas de Piscina -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <line x1="3" y1="4" x2="21" y2="4"/>
+              <path d="M7 4 L7 7 L17 7 L17 4"/>
+              <rect x="7" y="7" width="10" height="14" rx="1.5"/>
+              <line x1="9.5" y1="12" x2="14.5" y2="12"/>
+              <line x1="9.5" y1="15" x2="14.5" y2="15"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Toalhas de Piscina</span>
+          </div>
+
+          <!-- 08 · Paisagismo Nativo -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <path d="M12 22 L12 10"/>
+              <path d="M12 16 Q8 14 6 10 Q10 9 12 13"/>
+              <path d="M12 13 Q16 11 18 7 Q14 6 12 10"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Paisagismo Nativo</span>
+          </div>
+
+          <!-- 09 · Hidromassagem -->
+          <div class="d2-amenity">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--c-s500); flex-shrink:0;">
+              <path d="M3.5 10 Q3.5 7.5 7 7 L17 7 Q20.5 7.5 20.5 10 L20.5 17 Q20.5 19.5 12 19.5 Q3.5 19.5 3.5 17 Z"/>
+              <path d="M7 7 Q6.5 5 8 4"/>
+              <path d="M12 7 Q11.5 5 13 4"/>
+              <path d="M17 7 Q16.5 5 18 4"/>
+            </svg>
+            <span style="font-family:var(--font-sans); font-size:0.57rem; font-weight:600;
+                         letter-spacing:0.18em; text-transform:uppercase; color:var(--c-s600);">Hidromassagem</span>
+          </div>
+
+        </div><!-- /.d2-amenities -->
+
+      </div><!-- /.d2-content -->
+
+    </div><!-- /.d2-grid -->
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     CSS · PASSEIOS PRIVATIVOS
+═══════════════════════════════════════════════════ -->
+<style>
+
+/* ── wrapper ── */
+#passeios-priv {
+  background: var(--c-cream);
+  overflow: hidden;
+}
+
+/* ══ BLOCO TEXTO CENTRADO ══ */
+.sx-text-block {
+  max-width: 56ch;
+  margin: 0 auto;
+  padding: 6.5rem 2rem 5rem;
+  text-align: center;
+}
+.sx-eyebrow {
+  display: inline-flex; align-items: center; gap: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.sx-eyebrow.sv { opacity: 1; transform: translateY(0); }
+.sx-eyebrow-line { width: 40px; height: 1px; background: var(--c-gold); opacity: 0.50; }
+.sx-eyebrow-text {
+  font-family: var(--font-sans); font-size: 0.50rem; font-weight: 500;
+  letter-spacing: 0.36em; text-transform: uppercase; color: var(--c-gold);
+}
+.sx-heading {
+  font-family: var(--font-serif); font-weight: 300;
+  font-size: clamp(2rem, 3.8vw, 3.5rem);
+  color: var(--c-pine-deep); line-height: 1.1; letter-spacing: -0.025em;
+  margin-bottom: 1.6rem;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 1s var(--ease-out) 0.1s, transform 1s var(--ease-out) 0.1s;
+}
+.sx-heading.sv { opacity: 1; transform: translateY(0); }
+.sx-heading em { font-style: italic; font-weight: 300; color: var(--c-gold); }
+.sx-subtext {
+  font-family: var(--font-serif); font-style: italic; font-weight: 300;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  color: #78716C; line-height: 1.8;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.9s var(--ease-out) 0.2s, transform 0.9s var(--ease-out) 0.2s;
+}
+.sx-subtext.sv { opacity: 1; transform: translateY(0); }
+
+/* ══ FIGURA FULL-WIDTH ══ */
+.sx-figure {
+  width: 100%; margin: 0; padding: 0;
+  height: clamp(360px, 50vw, 640px);
+  overflow: hidden; position: relative; display: block;
+}
+.sx-figure img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transform: scale(1.04); transition: transform 14s ease;
+}
+.sx-figure:hover img { transform: scale(1.07); }
+.sx-figure::before {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(13,26,18,0.28) 0%, transparent 40%),
+    linear-gradient(to top,    rgba(13,26,18,0.52) 0%, transparent 50%);
+}
+
+/* ══ ÁREA DO FILTRO ══ */
+.sx-filter-area {
+  max-width: var(--max-w, 90rem);
+  margin: 0 auto;
+  padding: 3rem clamp(2.5rem, 8vw, 9rem) 2rem;
+}
+.sx-filter-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-sans); font-size: 0.50rem; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--c-pine-deep); background: transparent;
+  border: 1px solid rgba(28,41,34,0.30);
+  padding: 0.7rem 1.4rem; cursor: pointer;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.sx-filter-btn:hover { border-color: var(--c-gold); color: var(--c-gold); }
+.sx-filter-menu {
+  display: none; position: absolute; z-index: 10;
+  background: #fff; border: 1px solid rgba(28,41,34,0.12);
+  min-width: 200px; margin-top: 4px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+}
+.sx-filter-wrap { position: relative; display: inline-block; }
+.sx-filter-wrap.is-open .sx-filter-menu { display: block; }
+.sx-filter-item {
+  display: block; padding: 0.8rem 1.4rem;
+  font-family: var(--font-sans); font-size: 0.50rem; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-pine-deep);
+  cursor: pointer; transition: background 0.2s ease;
+}
+.sx-filter-item:hover { background: rgba(201,169,110,0.12); }
+.sx-filter-item.is-active { color: var(--c-gold); }
+
+/* ══ GRADE DE CARDS (≡ awa-content-list__list, 2 colunas) ══ */
+.sx-content-list {
+  max-width: var(--max-w, 90rem);
+  margin: 0 auto;
+  padding: 0 clamp(2.5rem, 8vw, 9rem) calc(6rem + 180px);
+}
+.sx-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3.5rem 1.25rem;
+}
+
+/* ══ CARD INDIVIDUAL (≡ awa-single-list-content--landscape-type) ══ */
+.sx-card { display: flex; flex-direction: column; }
+
+/* media: imagem em cima, aspect-ratio 630/380 */
+.sx-card__media {
+  position: relative; overflow: hidden;
+  aspect-ratio: 630 / 380;
+}
+.sx-card__image {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transform: scale(1.04);
+  transition: transform 1.4s var(--ease-out);
+}
+.sx-card:hover .sx-card__image { transform: scale(1.09); }
+
+/* conteúdo abaixo da imagem */
+.sx-card__content {
+  padding: 1.8rem 0 0;
+}
+
+/* heading */
+.sx-card__heading {
+  font-family: var(--font-serif); font-weight: 400;
+  font-size: clamp(1.3rem, 2vw, 1.9rem);
+  color: var(--c-pine-deep); line-height: 1.15;
+  margin: 0 0 0.5rem;
+  opacity: 0; transform: translateY(14px);
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+.sx-card__heading.sv { opacity: 1; transform: translateY(0); }
+
+/* subheading */
+.sx-card__subheading {
+  font-family: var(--font-sans); font-size: 0.48rem; font-weight: 500;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--c-gold); margin-bottom: 1rem;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.85s var(--ease-out) 0.08s, transform 0.85s var(--ease-out) 0.08s;
+}
+.sx-card__subheading.sv { opacity: 1; transform: translateY(0); }
+
+/* excerpt */
+.sx-card__excerpt {
+  font-family: var(--font-sans); font-size: 0.73rem; font-weight: 300;
+  line-height: 1.78; color: #57534E;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.9s var(--ease-out) 0.16s, transform 0.9s var(--ease-out) 0.16s;
+}
+.sx-card__excerpt.sv { opacity: 1; transform: translateY(0); }
+.sx-card__excerpt p { margin: 0; }
+
+/* action */
+.sx-card__action-list { margin-top: 1.4rem; }
+.sx-card__action-link {
+  display: inline-block;
+  font-family: var(--font-sans); font-size: 0.49rem; font-weight: 600;
+  letter-spacing: 0.20em; text-transform: uppercase;
+  color: var(--c-pine-deep); text-decoration: underline;
+  text-underline-offset: 3px; text-decoration-color: rgba(28,41,34,0.30);
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.85s var(--ease-out) 0.28s,
+              transform 0.85s var(--ease-out) 0.28s,
+              color 0.3s ease, text-decoration-color 0.3s ease;
+}
+.sx-card__action-link.sv { opacity: 1; transform: translateY(0); }
+.sx-card__action-link:hover { color: var(--c-gold); text-decoration-color: var(--c-gold); }
+
+@media (max-width: 700px) {
+  .sx-cards-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+</style>
+
+<!-- ═══════════════════════════════════════════════════
+     PASSEIOS PRIVATIVOS
+═══════════════════════════════════════════════════ -->
+<section id="passeios-priv">
+
+  <!-- spacer (≡ wp-block-spacer height:100px) -->
+  <div style="height:2rem" aria-hidden="true"></div>
+
+  <!-- bloco de texto centrado (≡ wp-columns 25/50/25 + awa-text--centered-type) -->
+  <div class="sx-text-block">
+    <div class="sx-eyebrow" id="sxEyebrow">
+      <div class="sx-eyebrow-line"></div>
+      <span class="sx-eyebrow-text">Lapinha da Serra &nbsp;·&nbsp; Passeios Exclusivos</span>
+      <div class="sx-eyebrow-line"></div>
+    </div>
+    <h2 class="sx-heading" id="sxHeading">
+      Crie seu próprio caminho com <em>passeios privativos.</em>
+    </h2>
+    <p class="sx-subtext" id="sxSubtext">
+      O Solar do Espinhaço organiza roteiros exclusivos para que cada hóspede explore
+      a Serra no seu próprio ritmo, conectando-se de forma genuína com a natureza,
+      a história e a hospitalidade de Lapinha da Serra.
+    </p>
+  </div>
+
+  <!-- figura full-width (≡ wp-block-image > figure.aligncenter.size-full) -->
+  <figure class="sx-figure">
+    <img
+      src="Solar do Espinhaço — Design System/assets/images/trilha.avif"
+      alt="Trilha pela Serra do Espinhaço"
+      loading="lazy"
+    />
+  </figure>
+
+  <!-- filtro (≡ awa-content-list__filter) -->
+  <div class="sx-filter-area">
+    <div class="sx-filter-wrap" id="sxFilterWrap">
+      <button class="sx-filter-btn" id="sxFilterBtn" aria-expanded="false" aria-haspopup="listbox">
+        Filtrar por tipo +
+      </button>
+      <div class="sx-filter-menu" role="listbox">
+        <span class="sx-filter-item is-active" data-filter="todos">Todos</span>
+        <span class="sx-filter-item" data-filter="cachoeiras">Cachoeiras</span>
+        <span class="sx-filter-item" data-filter="pocos">Poços</span>
+        <span class="sx-filter-item" data-filter="trilhas">Trilhas &amp; Picos</span>
+        <span class="sx-filter-item" data-filter="aquatico">Aquático</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- grade de cards -->
+  <div class="sx-content-list">
+    <div class="sx-cards-grid" id="sxCardsGrid">
+
+      <div class="sx-card" data-type="cachoeiras">
+        <div class="sx-card__media">
+          <img class="sx-card__image" src="Solar do Espinhaço — Design System/assets/images/Piscina.jpeg" alt="Cachoeira do Lajeado" loading="lazy"/>
+        </div>
+        <div class="sx-card__content">
+          <h3 class="sx-card__heading">Cachoeira do Lajeado</h3>
+          <div class="sx-card__subheading">Solar do Espinhaço</div>
+          <div class="sx-card__excerpt">
+            <p>Queda d'água de rara beleza emoldurada por lajedos de quartzito e vegetação nativa. Acesso por trilha curta de fácil percurso, ideal para todas as idades, com piscina natural formada na base da queda.</p>
+          </div>
+          <div class="sx-card__action-list"><a class="sx-card__action-link" href="mailto:reservas@solardoespinhaco.com.br">Contato</a></div>
+        </div>
+      </div>
+
+      <div class="sx-card" data-type="cachoeiras">
+        <div class="sx-card__media">
+          <img class="sx-card__image" src="Solar do Espinhaço — Design System/assets/images/trilha.avif" alt="Cachoeira Bicame" loading="lazy"/>
+        </div>
+        <div class="sx-card__content">
+          <h3 class="sx-card__heading">Cachoeira Bicame</h3>
+          <div class="sx-card__subheading">Solar do Espinhaço</div>
+          <div class="sx-card__excerpt">
+            <p>Escondida entre matas ciliares e afloramentos rochosos, a Bicame surpreende pela força e altura da queda. O trajeto de acesso atravessa córregos e campos abertos com vistas privilegiadas da Serra do Espinhaço.</p>
+          </div>
+          <div class="sx-card__action-list"><a class="sx-card__action-link" href="mailto:reservas@solardoespinhaco.com.br">Contato</a></div>
+        </div>
+      </div>
+
+      <div class="sx-card" data-type="pocos">
+        <div class="sx-card__media">
+          <img class="sx-card__image" src="Solar do Espinhaço — Design System/assets/images/Piscina.jpeg" alt="Poço do Soberbo" loading="lazy"/>
+        </div>
+        <div class="sx-card__content">
+          <h3 class="sx-card__heading">Poço do Soberbo</h3>
+          <div class="sx-card__subheading">Solar do Espinhaço</div>
+          <div class="sx-card__excerpt">
+            <p>Uma das piscinas naturais mais impressionantes da região, com água cristalina esmeralda cercada por paredões rochosos cobertos de líquens e bromélias. A beleza soberba do lugar justifica plenamente o nome.</p>
+          </div>
+          <div class="sx-card__action-list"><a class="sx-card__action-link" href="mailto:reservas@solardoespinhaco.com.br">Contato</a></div>
+        </div>
+      </div>
+
+      <div class="sx-card" data-type="cachoeiras">
+        <div class="sx-card__media">
+          <img class="sx-card__image" src="Solar do Espinhaço — Design System/assets/images/trilha.avif" alt="Cachoeira Rapel" loading="lazy"/>
+        </div>
+        <div class="sx-card__content">
+          <h3 class="sx-card__heading">Cachoeira Rapel</h3>
+          <div class="sx-card__subheading">Solar do Espinhaço</div>
+          <div class="sx-card__excerpt">
+            <p>Para os que buscam adrenalina na natureza, a Cachoeira Rapel oferece a possibilidade de descida em rapel pela rocha molhada. A experiência combina técnica, segurança e contato íntimo com a força da água da serra.</p>
+          </div>
+          <div class="sx-card__action-list"><a class="sx-card__action-link" href="mailto:reservas@solardoespinhaco.com.br">Contato</a></div>
+        </div>
+      </div>
+
+      <div class="sx-card" data-type="cachoeiras">
+        <div class="sx-card__media">
+          <img class="sx-card__image" src="Solar do Espinhaço — Design System/assets/images/Piscina.jpeg" alt="Cachoeira Paraíso" loading="lazy"/>
+        </div>
+        <div class="sx-card__content">
+          <h3 class="sx-card__heading">Cachoeira Paraíso</h3>
+          <div class="sx-card__subheading">Solar do Espinhaço</div>
+          <div class="sx-card__excerpt">
+            <p>Fiel ao nome, é um dos cenários mais paradisíacos de Lapinha da Serra. A queda principal deságua numa ampla piscina natural de águas calmas, perfeita para banho e contemplação em meio à fauna e flora do cerrado.</p>
+          </div>
+          <div class="sx-card__action-list"><a class="sx-card__action-link" href="mailto:reservas@solardoespinhaco.com.br">Contato</a></div>
+        </div>
+      </div>
+
+      <div class="sx-card" data-type="pocos">
+        <div class="sx-card__media">
+          <img class="sx-card__image" src="Solar do Espinhaço — Design System/assets/images/Piscina.jpeg" alt="Poço do Boqueirão" loading="lazy"/>
+        </div>
+        <div class="sx-card__content">
+          <h3 class="sx-card__heading">Poço do Boqueirão</h3>
+          <div class="sx-card__subheading">Solar do Espinhaço</div>
+          <div class="sx-card__excerpt">
+            <p>Formado por um estreito canyon rochoso onde o rio canaliza suas águas, o Boqueirão cria uma piscina natural profunda e de beleza singular. O entorno preservado e o silêncio do lugar tornam a visita uma experiência meditativa.</p>
+          </div>
+          <div class="sx-card__action-list"><a class="sx-card__action-link" href="mailto:reservas@solardoespinhaco.com.br">Contato</a></div>
+        </div>
+      </div>
+
+      <div class="sx-card" data-type="trilhas">
+        <div class="sx-card__media">
+          <img class="sx-card__image" src="Solar do Espinhaço — Design System/assets/images/serra-hero.avif" alt="Travessia Lapinha – Tabuleiro" loading="lazy"/>
+        </div>
+        <div class="sx-card__content">
+          <h3 class="sx-card__heading">Travessia Lapinha – Tabuleiro</h3>
+          <div class="sx-card__subheading">Solar do Espinhaço</div>
+          <div class="sx-card__excerpt">
+            <p>Uma das travessias mais épicas do Brasil, cruzando o coração da Serra do Espinhaço de Lapinha da Serra até o distrito do Tabuleiro. Dois dias de caminhada por campo rupestre, cachoeiras e paisagens que poucos olhos já viram.</p>
+          </div>
+          <div class="sx-card__action-list"><a class="sx-card__action-link" href="mailto:reservas@solardoespinhaco.com.br">Contato</a></div>
+        </div>
+      </div>
+
+      <div class="sx-card" data-type="trilhas">
+        <div class="sx-card__media">
+          <img class="sx-card__image" src="Solar do Espinhaço — Design System/assets/images/trilha.avif" alt="Pinturas Rupestres" loading="lazy"/>
+        </div>
+        <div class="sx-card__content">
+          <h3 class="sx-card__heading">Pinturas Rupestres</h3>
+          <div class="sx-card__subheading">Solar do Espinhaço</div>
+          <div class="sx-card__excerpt">
+            <p>Registros milenares deixados pelos povos que habitaram estas serras estão preservados nos paredões de arenito da região. Um guia especializado conduz a visita, contextualizando a história e o significado de cada símbolo.</p>
+          </div>
+          <div class="sx-card__action-list"><a class="sx-card__action-link" href="mailto:reservas@solardoespinhaco.com.br">Contato</a></div>
+        </div>
+      </div>
+
+      <div class="sx-card" data-type="aquatico">
+        <div class="sx-card__media">
+          <img class="sx-card__image" src="Solar do Espinhaço — Design System/assets/images/Piscina.jpeg" alt="Stand Up e Caiaque" loading="lazy"/>
+        </div>
+        <div class="sx-card__content">
+          <h3 class="sx-card__heading">Stand Up e Caiaque</h3>
+          <div class="sx-card__subheading">Solar do Espinhaço</div>
+          <div class="sx-card__excerpt">
+            <p>Explore as águas tranquilas do rio em cima de uma prancha de SUP ou dentro de um caiaque, enquanto a Serra do Espinhaço reflete na superfície espelhada da água. Equipamentos e instrutor inclusos para iniciantes e experientes.</p>
+          </div>
+          <div class="sx-card__action-list"><a class="sx-card__action-link" href="mailto:reservas@solardoespinhaco.com.br">Contato</a></div>
+        </div>
+      </div>
+
+      <div class="sx-card" data-type="trilhas">
+        <div class="sx-card__media">
+          <img class="sx-card__image" src="Solar do Espinhaço — Design System/assets/images/serra-hero.avif" alt="Pico da Lapinha" loading="lazy"/>
+        </div>
+        <div class="sx-card__content">
+          <h3 class="sx-card__heading">Pico da Lapinha</h3>
+          <div class="sx-card__subheading">Solar do Espinhaço</div>
+          <div class="sx-card__excerpt">
+            <p>O cume mais icônico da região, com acesso por trilha de nível moderado que recompensa com uma vista de 360° sobre vales, serras e o infinito horizonte de Minas Gerais. O alvorecer no topo é uma experiência transformadora.</p>
+          </div>
+          <div class="sx-card__action-list"><a class="sx-card__action-link" href="mailto:reservas@solardoespinhaco.com.br">Contato</a></div>
+        </div>
+      </div>
+
+      <div class="sx-card" data-type="trilhas">
+        <div class="sx-card__media">
+          <img class="sx-card__image" src="Solar do Espinhaço — Design System/assets/images/trilha.avif" alt="Pico do Breu" loading="lazy"/>
+        </div>
+        <div class="sx-card__content">
+          <h3 class="sx-card__heading">Pico do Breu</h3>
+          <div class="sx-card__subheading">Solar do Espinhaço</div>
+          <div class="sx-card__excerpt">
+            <p>Menos visitado que o Pico da Lapinha, o Breu oferece uma ascensão mais técnica e uma solidão rara. Quem chega ao cume encontra campos de sempre-vivas, ventos fortes e um panorama inigualável sobre o Espinhaço meridional.</p>
+          </div>
+          <div class="sx-card__action-list"><a class="sx-card__action-link" href="mailto:reservas@solardoespinhaco.com.br">Contato</a></div>
+        </div>
+      </div>
+
+    </div><!-- /.sx-cards-grid -->
+  </div><!-- /.sx-content-list -->
+
+</section><!-- /#passeios-priv -->
+
+<!-- ═══════════════════════════════════════════════════
+     DOBRA 05 — CTA FINAL + FOOTER INTEGRADO
+═══════════════════════════════════════════════════ -->
+<section class="cta-section" id="cta-final">
+
+  <!-- Background com parallax -->
+  <div class="cta-bg" id="ctaBg"></div>
+
+  <!-- Overlay multicamada -->
+  <div class="cta-overlay"></div>
+  <div class="cta-vignette"></div>
+
+  <!-- Linha superior dourada -->
+  <div class="cta-top-rule"></div>
+
+  <!-- Conteúdo central -->
+  <div class="cta-inner">
+
+    <!-- Eyebrow -->
+    <div class="cta-eyebrow" id="ctaEyebrow">
+      <div class="cta-eyebrow-line"></div>
+      <span class="cta-eyebrow-text">Lapinha da Serra &nbsp;·&nbsp; Minas Gerais</span>
+      <div class="cta-eyebrow-line"></div>
+    </div>
+
+    <!-- Headline principal -->
+    <h2 class="cta-headline" id="ctaHeadline">
+      Sua estadia na serra<br>
+      <em>começa aqui.</em>
+    </h2>
+
+    <!-- Subheadline -->
+    <p class="cta-sub" id="ctaSub">
+      O Solar do Espinhaço reserva para você um espaço onde o tempo desacelera
+      e a natureza volta a fazer sentido.
+    </p>
+
+  </div><!-- /.cta-inner -->
+
+  <!-- Footer integrado — dentro da seção com background da serra -->
+  <div class="cta-footer-integrated">
+    <div class="cfi-main">
+
+      <!-- Marca -->
+      <div class="cfi-brand">
+        <div class="cfi-logo-wrap">
+          <!-- Disco com folha -->
+          <div style="position:relative; width:33px; height:33px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <div style="position:absolute; inset:0; border-radius:50%; border:1px solid rgba(255,255,255,0.48);"></div>
+            <iconify-icon icon="solar:leaf-linear" width="19" style="color:rgba(255,255,255,0.88);"></iconify-icon>
+          </div>
+          <!-- Divisor + Wordmark -->
+          <div style="display:flex; align-items:center;">
+            <div style="width:1px; height:33px; background:rgba(255,255,255,0.18); flex-shrink:0; margin-left:13px;"></div>
+            <div style="margin-left:13px;">
+              <div style="font-family:'Inter',sans-serif; font-weight:400; font-size:8.5px; letter-spacing:0.38em; text-transform:uppercase; color:rgba(255,255,255,0.60); line-height:1; text-shadow:0 1px 8px rgba(0,0,0,0.55);">Solar do</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:22px; letter-spacing:0.08em; text-transform:uppercase; line-height:1; color:rgba(255,255,255,0.93); margin-top:4px; text-shadow:0 2px 12px rgba(0,0,0,0.40);">Espinhaço</div>
+            </div>
+          </div>
+        </div>
+        <p class="cfi-tagline">Uma pousada boutique na Serra do Espinhaço. Silêncio, paisagem e hospitalidade em Lapinha da Serra.</p>
+        <div class="cfi-social-icons">
+          <a href="https://instagram.com/solardoespinhaco" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://wa.me/5531997555245" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Contato -->
+      <nav class="cfi-nav" aria-label="Contato">
+        <span class="cfi-nav-title">Contato</span>
+        <ul>
+          <li><a href="tel:+5531997555245">Telefone · +55 31 9 9755-5245</a></li>
+          <li><a href="mailto:reservas@solardoespinhaco.com.br">reservas@solardoespinhaco.com.br</a></li>
+          <li><a href="https://www.solardoespinhaco.com.br" target="_blank" rel="noopener">www.solardoespinhaco.com.br</a></li>
+        </ul>
+      </nav>
+
+      <!-- Localização -->
+      <nav class="cfi-nav" aria-label="Localização">
+        <span class="cfi-nav-title">Localização</span>
+        <ul>
+          <li><span>Rua Olhos D'água, nº 22</span></li>
+          <li><span>Lapinha da Serra — MG</span></li>
+          <li><a href="https://maps.app.goo.gl/XfvBXTmR62YSmWRt5" target="_blank" rel="noopener">Ver no mapa →</a></li>
+        </ul>
+      </nav>
+
+      <!-- Informações -->
+      <nav class="cfi-nav" aria-label="Informações">
+        <span class="cfi-nav-title">Informações</span>
+        <ul>
+          <li><span>Check-in 15h · Check-out 12h</span></li>
+          <li><span>Cancelamento flexível até 7 dias</span></li>
+          <li><span>Pets sob consulta</span></li>
+          <li><span>Reservas direto pelo site</span></li>
+        </ul>
+      </nav>
+
+    </div><!-- /.cfi-main -->
+
+    <div class="cfi-bottom">
+      <div class="cfi-bottom-inner">
+        <span class="cfi-copy">© 2026 Solar do Espinhaço. Todos os direitos reservados.</span>
+        <div class="cfi-legal">
+          <a href="#">Política de Privacidade</a>
+          <a href="#">Termos de Uso</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.cta-footer-integrated -->
+
+</section><!-- /#cta-final -->
+
+<!-- ═══════════════════════════════════════════════════
+     JS · DOBRA 04 — EXPERIÊNCIAS (IIFE isolada)
+═══════════════════════════════════════════════════ -->
+<script>
+/* ── EXPERIÊNCIAS · Caderno de Campo da Serra ── */
+(function () {
+  var track    = document.getElementById('expTrack');
+  var btnPrev  = document.getElementById('expPrev');
+  var btnNext  = document.getElementById('expNext');
+  var counter  = document.getElementById('expCounter');
+  var progress = document.getElementById('expProgress');
+  if (!track || !btnPrev || !btnNext) return;
+
+  var cards = track.querySelectorAll('.exp-card');
+  var TOTAL = cards.length;
+  var GAP   = 28; /* 1.75rem ≈ 28px */
+
+  function cardWidth() {
+    return cards[0] ? cards[0].offsetWidth + GAP : 300;
+  }
+
+  function currentIndex() {
+    return Math.round(track.scrollLeft / cardWidth());
+  }
+
+  function updateUI() {
+    var idx = currentIndex();
+    var cur = String(Math.min(idx + 1, TOTAL)).padStart(2, '0');
+    var tot = String(TOTAL).padStart(2, '0');
+    counter.textContent = cur + ' — ' + tot;
+    btnPrev.disabled = idx <= 0;
+    btnNext.disabled = idx >= TOTAL - 1;
+    if (progress) {
+      var max = track.scrollWidth - track.clientWidth;
+      var pct = max > 0 ? track.scrollLeft / max : 0;
+      /* Mapeia 0→1/TOTAL até 1→1 para que o ponto de partida mostre a fatia do card 1 */
+      var fill = (1 / TOTAL) + pct * ((TOTAL - 1) / TOTAL);
+      progress.style.transform = 'scaleX(' + fill.toFixed(4) + ')';
+    }
+  }
+
+  /* Setas */
+  btnPrev.addEventListener('click', function () {
+    track.scrollBy({ left: -cardWidth(), behavior: 'smooth' });
+  });
+  btnNext.addEventListener('click', function () {
+    track.scrollBy({ left: cardWidth(), behavior: 'smooth' });
+  });
+
+  /* Teclado (quando o trilho está focado) */
+  track.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); track.scrollBy({ left:  cardWidth(), behavior: 'smooth' }); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); track.scrollBy({ left: -cardWidth(), behavior: 'smooth' }); }
+  });
+
+  /* Scroll listener */
+  track.addEventListener('scroll', updateUI, { passive: true });
+
+  /* Drag-to-scroll com inércia */
+  var dragging = false, startX, startScroll, velX = 0, lastX, lastT, rafId;
+
+  track.addEventListener('pointerdown', function (e) {
+    dragging = true; startX = e.clientX; startScroll = track.scrollLeft;
+    lastX = e.clientX; lastT = Date.now(); velX = 0;
+    track.classList.add('is-dragging');
+    track.setPointerCapture(e.pointerId);
+    cancelAnimationFrame(rafId);
+  });
+
+  track.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var now = Date.now(), dt = now - lastT || 1;
+    velX = (e.clientX - lastX) / dt;
+    lastX = e.clientX; lastT = now;
+    track.scrollLeft = startScroll - (e.clientX - startX);
+  });
+
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    track.classList.remove('is-dragging');
+    (function glide() {
+      if (Math.abs(velX) < 0.3) return;
+      track.scrollLeft -= velX * 14;
+      velX *= 0.88;
+      rafId = requestAnimationFrame(glide);
+    })();
+  }
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+
+  /* Previne click após drag */
+  track.addEventListener('click', function (e) {
+    if (Math.abs(track.scrollLeft - startScroll) > 6) e.stopPropagation();
+  }, true);
+
+  updateUI();
+})();
+</script>
+
+<script>
+/* ── HERO: título some, frase surge ── */
+(function () {
+  const title  = document.getElementById('heroTitle');
+  const phrase = document.getElementById('heroPhrase');
+  const scroll = document.getElementById('heroScroll');
+  if (!title || !phrase) return;
+
+  // fadeIn completa em 1.5 s (delay 0.3 + duração 1.2)
+  // fade-out inicia imediatamente após
+  setTimeout(function () {
+
+    // 1 · inicia fade-out gradual (9 s, apaga suavemente)
+    title.classList.add('fade-out');
+    if (scroll) scroll.style.opacity = '0';
+
+    // 2 · texto some e frase surge aos ~4.1 s totais (2.6 s após fade-out iniciar)
+    setTimeout(function () {
+      title.style.display = 'none';
+      phrase.classList.add('is-visible');
+    }, 2600);
+
+  }, 1500);
+})();
+
+/* ── NAV: transparente no topo, pine glass ao rolar ── */
+(function () {
+  const nav = document.getElementById('siteNav');
+  function onScroll() {
+    nav.classList.toggle('is-scrolled', window.scrollY > 40);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); // estado inicial
+})();
+
+/* ── BOOKING DYNAMICS ── */
+const Booking = (() => {
+  const TODAY  = new Date(); TODAY.setHours(0,0,0,0);
+  const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+                  'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const WDAYS  = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  // placeholders para evitar erros de referência das variáveis antigas
+  const PT_M = MONTHS, EN_M = MONTHS, ES_M = MONTHS;
+  const PT_D = WDAYS,  EN_D = WDAYS,  ES_D = WDAYS;
+
+  /* ── Estado ── */
+  let s = {
+    checkin:   null,
+    checkout:  null,
+    adults:    2,
+    children:  1,
+    active:    null,
+    selecting: false,
+    start:     null,
+    hover:     null,
+    cy: TODAY.getFullYear(),
+    cm: TODAY.getMonth(),
+    blocked:   [],
+  };
+
+  /* helpers */
+  const same = (a, b) => !!(a && b && a.getTime() === b.getTime());
+  const fmt  = d => d ? `${d.getDate()} ${MONTHS[d.getMonth()]}, ${d.getFullYear()}` : '';
+  const nts  = () => (s.checkin && s.checkout)
+    ? Math.round((s.checkout - s.checkin) / 864e5) : 0;
+
+  /* ── Atualiza barra ── */
+  function updateDisplays() {
+    const ci = document.getElementById('checkinDisplay');
+    const co = document.getElementById('checkoutDisplay');
+    if (!ci || !co) return;
+    ci.textContent = fmt(s.checkin)  || 'Selecionar data';
+    co.textContent = fmt(s.checkout) || 'Selecionar data';
+    const g = document.getElementById('guestsDisplay');
+    if (g) {
+      const aw = s.adults   === 1 ? 'Adulto'  : 'Adultos';
+      const cw = s.children === 1 ? 'Criança' : 'Crianças';
+      g.textContent = s.children === 0
+        ? `${s.adults} ${aw}`
+        : `${s.adults} ${aw}, ${s.children} ${cw}`;
+    }
+  }
+
+  /* ── Fecha popovers ── */
+  function close() {
+    document.querySelectorAll('.bk-pop').forEach(p => p.remove());
+    s.active    = null;
+    s.selecting = false;
+    s.start     = null;
+    s.hover     = null;
+  }
+
+  /* ── Hover preview sem rebuild ── */
+  function applyHover() {
+    document.querySelectorAll('.bk-pop-cal .cal-d').forEach(cell => {
+      const d = cell._date;
+      cell.classList.remove('cal-prev', 'cal-prev-end');
+      if (!d || !s.selecting || !s.start || !s.hover || s.hover <= s.start) return;
+      if (d > s.start && d < s.hover) cell.classList.add('cal-prev');
+      if (same(d, s.hover))           cell.classList.add('cal-prev', 'cal-prev-end');
+    });
+  }
+
+  /* ── Seleciona data ── */
+  function pickDay(date) {
+    if (!s.selecting) {
+      s.start     = date;
+      s.selecting = true;
+      s.checkin   = null;
+      s.checkout  = null;
+      s.hover     = null;
+      updateDisplays();
+      refresh();
+    } else {
+      if (date <= s.start) {
+        s.start = date;
+        s.hover = null;
+        refresh();
+      } else {
+        s.checkin   = s.start;
+        s.checkout  = date;
+        s.selecting = false;
+        s.start     = null;
+        s.hover     = null;
+        updateDisplays();
+        refresh();
+        setTimeout(close, 440);
+      }
+    }
+  }
+
+  /* ── Constrói calendário ── */
+  function buildCal() {
+    const firstWd = new Date(s.cy, s.cm, 1).getDay();
+    const daysInM = new Date(s.cy, s.cm + 1, 0).getDate();
+    const pop = document.createElement('div');
+    pop.className = 'bk-pop bk-pop-cal';
+
+    const hdr = document.createElement('div');
+    hdr.className = 'cal-head';
+    hdr.innerHTML = `
+      <button class="cal-arrow" id="calPrev" type="button">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="cal-month">${MONTHS[s.cm]} ${s.cy}</span>
+      <button class="cal-arrow" id="calNext" type="button">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>`;
+    pop.appendChild(hdr);
+
+    const wdRow = document.createElement('div');
+    wdRow.className = 'cal-wdays';
+    WDAYS.forEach(d => {
+      const wd = document.createElement('div');
+      wd.className = 'cal-wd';
+      wd.textContent = d;
+      wdRow.appendChild(wd);
+    });
+    pop.appendChild(wdRow);
+
+    const grid = document.createElement('div');
+    grid.className = 'cal-grid';
+
+    for (let i = 0; i < firstWd; i++) {
+      const e = document.createElement('div');
+      e.className = 'cal-d cal-empty';
+      grid.appendChild(e);
+    }
+
+    for (let day = 1; day <= daysInM; day++) {
+      const date = new Date(s.cy, s.cm, day);
+      const cell = document.createElement('div');
+      cell.className  = 'cal-d';
+      cell.textContent = day;
+      cell._date = date;
+
+      const isPast = date < TODAY;
+      const isBlk  = s.blocked.some(b => same(b, date));
+
+      if (isPast || isBlk) {
+        cell.classList.add(isBlk ? 'cal-blocked' : 'cal-off');
+      } else {
+        if (same(date, TODAY)) cell.classList.add('cal-today');
+
+        if (!s.selecting) {
+          const isCi  = same(date, s.checkin);
+          const isCo  = same(date, s.checkout);
+          const inRng = s.checkin && s.checkout && date > s.checkin && date < s.checkout;
+          if (isCi || isCo) {
+            cell.classList.add('cal-sel');
+            if (isCi && s.checkout) cell.classList.add('cal-rs');
+            if (isCo && s.checkin)  cell.classList.add('cal-re');
+          }
+          if (inRng) cell.classList.add('cal-range');
+        }
+
+        if (s.selecting && same(date, s.start)) cell.classList.add('cal-sel');
+
+        cell.addEventListener('mouseenter', () => {
+          if (!s.selecting) return;
+          s.hover = date;
+          applyHover();
+        });
+        cell.addEventListener('click', e => {
+          e.stopPropagation();
+          pickDay(date);
+        });
+      }
+      grid.appendChild(cell);
+    }
+    pop.appendChild(grid);
+
+    pop.addEventListener('mouseleave', () => {
+      if (!s.selecting) return;
+      s.hover = null;
+      applyHover();
+    });
+
+    const footer = document.createElement('div');
+    footer.className = 'cal-footer';
+    const n = nts();
+    if (n > 0 && !s.selecting) {
+      const ni = document.createElement('span');
+      ni.className = 'cal-nights';
+      ni.textContent = `${n} ${n === 1 ? 'noite' : 'noites'}`;
+      footer.appendChild(ni);
+      const cl = document.createElement('button');
+      cl.className = 'cal-clear'; cl.type = 'button'; cl.textContent = 'Limpar';
+      cl.addEventListener('click', e => {
+        e.stopPropagation();
+        s.checkin = null; s.checkout = null;
+        s.selecting = false; s.start = null; s.hover = null;
+        updateDisplays(); refresh();
+      });
+      footer.appendChild(cl);
+    } else {
+      const hint = document.createElement('span');
+      hint.className = 'cal-hint';
+      hint.textContent = s.selecting ? 'Selecione a data de saída' : 'Selecione o período desejado';
+      footer.appendChild(hint);
+    }
+    pop.appendChild(footer);
+    return pop;
+  }
+
+  function refresh() {
+    const old = document.querySelector('.bk-pop-cal');
+    if (!old) return;
+    const savedLeft = old.style.left;
+    const cal = buildCal();
+    if (savedLeft) cal.style.left = savedLeft;
+    old.replaceWith(cal);
+    attachCalNav();
+  }
+
+  function attachCalNav() {
+    const p = document.getElementById('calPrev');
+    const n = document.getElementById('calNext');
+    if (p) p.addEventListener('click', e => {
+      e.stopPropagation(); s.cm--; if (s.cm < 0) { s.cm = 11; s.cy--; } refresh();
+    });
+    if (n) n.addEventListener('click', e => {
+      e.stopPropagation(); s.cm++; if (s.cm > 11) { s.cm = 0; s.cy++; } refresh();
+    });
+  }
+
+  /* ── Hóspedes ── */
+  function buildGuests() {
+    const pop = document.createElement('div');
+    pop.className = 'bk-pop bk-pop-guests';
+    function row(label, sub, key, min) {
+      const r = document.createElement('div'); r.className = 'gst-row';
+      r.innerHTML = `
+        <div>
+          <div class="gst-title">${label}</div>
+          <div class="gst-sub">${sub}</div>
+        </div>
+        <div class="gst-ctrl">
+          <button class="gst-btn" id="gm-${key}" type="button" ${s[key]<=min?'disabled':''}>−</button>
+          <span class="gst-n" id="gn-${key}">${s[key]}</span>
+          <button class="gst-btn" id="gp-${key}" type="button">+</button>
+        </div>`;
+      r.querySelector(`#gm-${key}`).addEventListener('click', e => {
+        e.stopPropagation();
+        if (s[key] > min) { s[key]--; r.querySelector(`#gn-${key}`).textContent=s[key]; r.querySelector(`#gm-${key}`).disabled=s[key]<=min; updateDisplays(); }
+      });
+      r.querySelector(`#gp-${key}`).addEventListener('click', e => {
+        e.stopPropagation();
+        s[key]++; r.querySelector(`#gn-${key}`).textContent=s[key]; r.querySelector(`#gm-${key}`).disabled=false; updateDisplays();
+      });
+      return r;
+    }
+    pop.appendChild(row('Adultos', '13+ anos', 'adults', 1));
+    pop.appendChild(row('Crianças', '2–12 anos', 'children', 0));
+    return pop;
+  }
+
+  /* ── API pública ── */
+  function open(type) {
+    if (s.active === type) { close(); return; }
+    close();
+    s.active = type;
+    const anchor = document.getElementById('bookingAnchor');
+    if (type === 'checkin' || type === 'checkout') {
+      s.hover = null;
+      if (type === 'checkout' && s.checkin) {
+        s.start     = s.checkin;
+        s.selecting = true;
+        s.cy = s.checkin.getFullYear();
+        s.cm = s.checkin.getMonth();
+      } else {
+        s.start     = null;
+        s.selecting = false;
+        s.cy = TODAY.getFullYear();
+        s.cm = TODAY.getMonth();
+      }
+      const cal = buildCal();
+      anchor.appendChild(cal);
+      const field = anchor.querySelector('[data-field="' + type + '"]');
+      if (field) cal.style.left = field.offsetLeft + 'px';
+      attachCalNav();
+    } else {
+      anchor.appendChild(buildGuests());
+    }
+  }
+
+  document.addEventListener('click', e => {
+    if (!s.active) return;
+    const pop = document.querySelector('.bk-pop');
+    const bar = document.getElementById('bookingBar');
+    if (pop && !pop.contains(e.target) && bar && !bar.contains(e.target)) close();
+  });
+
+  updateDisplays();
+  return { open, close, updateDisplays, getState: () => s };
+})();
+
+/* ── LANGUAGE COMBO BOX ── */
+window._lang = 'pt'; // padrão: português
+
+function setLang(l) {
+  window._lang = l;
+  // atualiza label do trigger
+  const label = document.getElementById('langComboLabel');
+  if (label) label.textContent = l.toUpperCase();
+  // mostra apenas os idiomas que NÃO estão selecionados
+  document.querySelectorAll('.lang-combo-option').forEach(opt => {
+    opt.style.display = opt.dataset.lang === l ? 'none' : 'flex';
+  });
+  Booking.updateDisplays();
+}
+
+// inicializa PT como padrão após o DOM estar pronto
+document.addEventListener('DOMContentLoaded', () => setLang('pt'));
+
+/* hover inline do botão Reservar */
+(function () {
+  const btn = document.getElementById('navReserveBtn');
+  if (!btn) return;
+  btn.addEventListener('mouseenter', () => {
+    btn.style.background    = 'rgba(255,255,255,0.18)';
+    btn.style.borderColor   = 'rgba(255,255,255,0.38)';
+    btn.style.transform     = 'translateY(-2px)';
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.background    = 'rgba(255,255,255,0.10)';
+    btn.style.borderColor   = 'rgba(255,255,255,0.22)';
+    btn.style.transform     = 'translateY(0)';
+  });
+})();
+
+/* ── LANG INLINE · estado ativo ── */
+(function () {
+  const btns = document.querySelectorAll('.lang-inline-btn');
+  btns.forEach(btn => btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }));
+})();
+
+/* ── SITE MENU (burger toggle) ── */
+(function () {
+  const burger = document.getElementById('menuBurger');
+  const menu   = document.getElementById('siteMenu');
+
+  function openMenu() {
+    menu.classList.add('is-open');
+    burger.classList.add('is-open');
+    burger.setAttribute('aria-expanded', 'true');
+  }
+  function closeMenu() {
+    menu.classList.remove('is-open');
+    burger.classList.remove('is-open');
+    burger.setAttribute('aria-expanded', 'false');
+  }
+
+  burger.addEventListener('click', () =>
+    menu.classList.contains('is-open') ? closeMenu() : openMenu()
+  );
+  menu.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+  /* Fecha automaticamente ao retirar o mouse da zona do menu */
+  const menuZone = document.getElementById('menuZone');
+  if (menuZone) menuZone.addEventListener('mouseleave', closeMenu);
+})();
+
+/* ── SCROLL REVEAL ── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const delay = parseFloat(entry.target.dataset.delay || 0);
+      setTimeout(() => entry.target.classList.add('visible'), delay * 1000);
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach((el, i) => {
+  el.dataset.delay = (i % 5) * 0.08;
+  io.observe(el);
+});
+
+/* ── CHALÉ MOSAIC REVEAL ── */
+(function () {
+  const heads = document.querySelectorAll('.chale-head-reveal');
+  const wraps = document.querySelectorAll('.chale-wrap');
+
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var delay = parseInt(entry.target.dataset.chaleDelay || '0', 10);
+      setTimeout(function () {
+        entry.target.classList.add('is-visible');
+      }, delay);
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -60px 0px' });
+
+  heads.forEach(function (el) { io.observe(el); });
+  wraps.forEach(function (el) { io.observe(el); });
+})();
+
+/* ── NAV LOGO INTRO ANIMATION ── */
+(function () {
+  const nav      = document.getElementById('siteNav');
+  const disc     = document.getElementById('navLogoDisc');
+  const expand   = document.getElementById('navLogoExpand');
+  const wordmark = document.getElementById('navLogoWordmark');
+  const menuZone = document.getElementById('menuZone');
+  const navRight = document.getElementById('navRight');
+  if (!disc || !expand || !menuZone || !navRight) return;
+
+  /* Estado inicial: só o disco visível, centrado */
+  disc.style.opacity = '0';
+  menuZone.style.opacity = '0';
+  menuZone.style.transition = 'none';
+  menuZone.style.pointerEvents = 'none';
+  navRight.style.opacity = '0';
+  navRight.style.transition = 'none';
+  navRight.style.pointerEvents = 'none';
+
+  /* Fase 1 · 0 → 1.2s: disco + menu + direita surgem juntos */
+  setTimeout(function () {
+    disc.style.transition = 'opacity 1.2s ease';
+    disc.style.opacity = '1';
+    menuZone.style.transition = 'opacity 1.2s ease';
+    menuZone.style.opacity = '1';
+    menuZone.style.pointerEvents = 'auto';
+    navRight.style.transition = 'opacity 1.2s ease';
+    navRight.style.opacity = '1';
+    navRight.style.pointerEvents = 'auto';
+  }, 80);
+
+  /* Fases 3+4 · 4.1s: logo, menu e direita surgem juntos ao aparecer a frase */
+  setTimeout(function () {
+    /* FLIP — captura posição do disco antes da mudança de layout */
+    var before = disc.getBoundingClientRect();
+
+    /* Expande layout imediatamente (sem transição) */
+    expand.style.transition = 'none';
+    expand.style.maxWidth = '240px';
+
+    /* Força reflow e captura nova posição do disco */
+    void expand.offsetWidth;
+    var after = disc.getBoundingClientRect();
+    var dx = before.left - after.left;
+
+    /* Aplica transformação inversa: disco permanece visualmente no centro */
+    disc.style.transition = 'none';
+    if (dx !== 0) disc.style.transform = 'translateX(' + dx + 'px)';
+    void disc.offsetWidth;
+
+    /* Anima disco deslizando suavemente para a posição final */
+    disc.style.transition = 'transform 1s cubic-bezier(0.65, 0, 0.35, 1)';
+    disc.style.transform = 'translateX(0)';
+
+    /* Revela divider + wordmark: fade in + slide horizontal */
+    expand.style.transition = 'opacity 0.8s ease 0.3s';
+    expand.style.opacity = '1';
+    if (wordmark) {
+      wordmark.style.transition = 'transform 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.3s';
+      wordmark.style.transform = 'translateX(0)';
+    }
+
+  }, 4100);
+
+  /* Fase 5 · 6.5s: sincroniza estado de scroll */
+  setTimeout(function () {
+    nav.classList.toggle('is-scrolled', window.scrollY > 40);
+  }, 6500);
+})();
+
+/* ── BOOKING POPUP ── */
+function openBkPopup(e) {
+  if (e) e.stopPropagation();
+  document.getElementById('bkPopup').classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  Booking.updateDisplays();
+}
+function closeBkPopup() {
+  document.getElementById('bkPopup').classList.remove('is-open');
+  document.body.style.overflow = '';
+  Booking.close();
+}
+document.addEventListener('click', function(e) {
+  var popup = document.getElementById('bkPopup');
+  if (!popup || !popup.classList.contains('is-open')) return;
+  // Se o target foi removido do DOM (ex: célula do calendário ao fechar),
+  // o clique foi dentro do popup — não fechar.
+  if (!e.target.isConnected) return;
+  var bar = document.getElementById('bookingBar');
+  if (bar && !bar.contains(e.target)) closeBkPopup();
+});
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeBkPopup(); });
+
+/* ── D2 SLIDESHOWS — escopo por container (suporta múltiplas seções) ── */
+(function () {
+  document.querySelectorAll('.d2-slideshow').forEach(function (container) {
+    var slides = container.querySelectorAll('.d2-slide');
+    var dots   = container.querySelectorAll('.d2-dot');
+    if (slides.length < 2) return;
+    var current = 0;
+    var timer;
+    function goTo(idx) {
+      slides[current].classList.remove('is-active');
+      if (dots[current]) dots[current].classList.remove('is-active');
+      current = (idx + slides.length) % slides.length;
+      slides[current].classList.add('is-active');
+      if (dots[current]) dots[current].classList.add('is-active');
+    }
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(function () { goTo(current + 1); }, 5000);
+    }
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () { goTo(i); startTimer(); });
+    });
+    startTimer();
+  });
+})();
+
+/* ── CHALÉ SLIDESHOWS — controlador independente por container ── */
+(function () {
+  document.querySelectorAll('.chale-slideshow').forEach(function (container) {
+    var slides = container.querySelectorAll('.chale-slide');
+    var dots   = container.querySelectorAll('.chale-dot-main');
+    if (slides.length < 2) return;
+    var current = 0;
+    var timer;
+
+    function goTo(idx) {
+      slides[current].classList.remove('is-active');
+      if (dots[current]) dots[current].classList.remove('is-active');
+      current = (idx + slides.length) % slides.length;
+      slides[current].classList.add('is-active');
+      if (dots[current]) dots[current].classList.add('is-active');
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(function () { goTo(current + 1); }, 6000);
+    }
+
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () { goTo(i); startTimer(); });
+    });
+
+    startTimer();
+  });
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════════
+     BOOKING POPUP — abre ao clicar em Reservar
+═══════════════════════════════════════════════════ -->
+<div id="bkPopup" role="dialog" aria-modal="true" aria-label="Fazer reserva">
+  <div id="bookingBar" class="glass-panel rounded-2xl md:rounded-full p-1.5 shadow-2xl shadow-black/35 w-full max-w-3xl mx-auto">
+    <div id="bookingAnchor" class="flex flex-col md:flex-row items-stretch">
+
+      <!-- Check-in -->
+      <div class="flex-1 flex flex-col justify-center px-6 py-4 cursor-pointer group hover:bg-white/5 transition-colors rounded-xl md:rounded-l-full md:rounded-r-none border-b md:border-b-0 md:border-r border-white/[0.07]"
+           data-field="checkin" onclick="Booking.open('checkin')">
+        <label class="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.22em] text-stone-500 mb-1 group-hover:text-stone-400 transition-colors cursor-pointer">
+          <iconify-icon icon="solar:calendar-mark-linear" width="11"></iconify-icon>
+          Check-in
+        </label>
+        <div class="text-stone-100 text-[0.78rem] font-medium" id="checkinDisplay">Selecionar data</div>
+      </div>
+
+      <!-- Check-out -->
+      <div class="flex-1 flex flex-col justify-center px-6 py-4 cursor-pointer group hover:bg-white/5 transition-colors rounded-xl md:rounded-none border-b md:border-b-0 md:border-r border-white/[0.07]"
+           data-field="checkout" onclick="Booking.open('checkout')">
+        <label class="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.22em] text-stone-500 mb-1 group-hover:text-stone-400 transition-colors cursor-pointer">
+          <iconify-icon icon="solar:calendar-mark-linear" width="11"></iconify-icon>
+          Check-out
+        </label>
+        <div class="text-stone-100 text-[0.78rem] font-medium" id="checkoutDisplay">Selecionar data</div>
+      </div>
+
+      <!-- Hóspedes -->
+      <div class="flex-1 flex flex-col justify-center px-6 py-4 cursor-pointer group hover:bg-white/5 transition-colors rounded-xl md:rounded-none"
+           onclick="Booking.open('guests')">
+        <label class="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.22em] text-stone-500 mb-1 group-hover:text-stone-400 transition-colors cursor-pointer">
+          <iconify-icon icon="solar:users-group-rounded-linear" width="11"></iconify-icon>
+          Hóspedes
+        </label>
+        <div class="text-stone-100 text-[0.78rem] font-medium" id="guestsDisplay">2 Adultos, 1 Criança</div>
+      </div>
+
+      <!-- CTA -->
+      <div class="px-1.5 py-1.5 md:pr-1.5 md:self-center">
+        <button class="btn-glow w-full md:w-auto bg-stone-100 text-stone-900 rounded-full px-6 py-2.5 flex items-center justify-center gap-1.5 hover:bg-white transition-colors shadow-lg font-semibold text-[0.62rem] tracking-widest uppercase">
+          Ver disponibilidade
+          <iconify-icon icon="solar:arrow-right-linear" width="12"></iconify-icon>
+        </button>
+      </div>
+
+    </div><!-- /#bookingAnchor -->
+  </div><!-- /#bookingBar -->
+</div><!-- /#bkPopup -->
+
+<!-- ═══════════════════════════════════════════════════
+     JS · DOBRA 05 — CTA FINAL (parallax + reveal)
+═══════════════════════════════════════════════════ -->
+<script>
+/* ── PARALLAX: move fundo da serra no scroll ── */
+(function () {
+  const bg  = document.getElementById('ctaBg');
+  const sec = document.getElementById('cta-final');
+  if (!bg || !sec || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      const rect     = sec.getBoundingClientRect();
+      const progress = -rect.top / (window.innerHeight + rect.height);
+      bg.style.transform = 'scale(1.12) translateY(' + (progress * 8) + '%)';
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ── REVEAL · Passeios Privativos ── */
+(function () {
+  var sec = document.getElementById('passeios-priv');
+  if (!sec) return;
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('sv'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  ['sxEyebrow','sxHeading','sxSubtext'].forEach(function (id) {
+    var el = document.getElementById(id); if (el) obs.observe(el);
+  });
+  sec.querySelectorAll('.sx-card__heading, .sx-card__subheading, .sx-card__excerpt, .sx-card__action-link')
+     .forEach(function (el) { obs.observe(el); });
+})();
+
+/* ── FILTRO · Passeios Privativos ── */
+(function () {
+  var wrap = document.getElementById('sxFilterWrap');
+  var btn  = document.getElementById('sxFilterBtn');
+  var grid = document.getElementById('sxCardsGrid');
+  if (!wrap || !btn || !grid) return;
+
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var open = wrap.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open);
+  });
+  document.addEventListener('click', function () {
+    wrap.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+  });
+
+  wrap.querySelectorAll('.sx-filter-item').forEach(function (item) {
+    item.addEventListener('click', function () {
+      var filter = item.dataset.filter;
+      wrap.querySelectorAll('.sx-filter-item').forEach(function (i) { i.classList.remove('is-active'); });
+      item.classList.add('is-active');
+      btn.childNodes[0].textContent = (filter === 'todos' ? 'Filtrar por tipo' : item.textContent) + ' +';
+      grid.querySelectorAll('.sx-card').forEach(function (card) {
+        card.style.display = (filter === 'todos' || card.dataset.type === filter) ? '' : 'none';
+      });
+      wrap.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+
+/* ── REVEAL EM CASCATA: eyebrow → headline → sub ── */
+(function () {
+  const ids = ['ctaEyebrow', 'ctaHeadline', 'ctaSub'];
+  const obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  ids.forEach(function (id) {
+    const el = document.getElementById(id);
+    if (el) obs.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>

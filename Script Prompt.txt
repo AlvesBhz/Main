@@ -1,0 +1,12 @@
+Gostaria de ajuda para criar um prompr para um agente de IA que vai criar um site pra mim.
+
+Quero que ele crie pra mim um index.html contendo uma Hero apenas para um site de hospedagem de um chalé.
+
+Possuo um arquivo importante para essa primeira etapa:
+Um design system. html que contém regras de tipografia, cores, layout, animações, efeitos, UX.... que gostaria que utilizasse para a estética do site.
+
+Quero que use a imagem xxxxx implementando no design system mencionado.
+
+Mande ele caprichar nos detalhes, animações, etc...
+
+Pense sobre quais seriam as bibliotecas de JS/CSS que poderiam ser utilizadas via CDN para fazer o que quero da melhor forma possível.

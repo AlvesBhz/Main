@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>VBM Kaizen — Aprovação</title>
+<link href="valebasemetals.com/assets/e9e335be0f29bc9f_bootstrap.css" rel="stylesheet"/>
+<link href="valebasemetals.com/assets/7a7fe288041d703f_aos.css" rel="stylesheet"/>
+<link href="valebasemetals.com/assets/e5e202e3c8995079_all.min.css" rel="stylesheet"/>
+<link href="assets/vbm-app.css" rel="stylesheet"/>
+<link href="valebasemetals.com/assets/a1922a98664cc516_favicon-32x32-1.png" rel="icon"/>
+<style>
+/* ─── Topnav layout ─── */
+.app-layout{display:block;min-height:100vh}.app-main{margin-left:0}
+.topnav{position:fixed;top:0;left:0;right:0;z-index:300;height:64px;background:linear-gradient(90deg,#020e1c 0%,#041523 40%,#082d4f 80%,#0a3560 100%);display:flex;align-items:center;padding:0 1.5rem;border-bottom:1px solid rgba(60,181,229,.15);box-shadow:0 4px 24px rgba(0,0,0,.35)}
+.topnav::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(60,181,229,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(60,181,229,.03) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.topnav::after{content:'';position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(60,181,229,.14) 0%,transparent 65%);top:-120px;right:200px;pointer-events:none;animation:orb1 22s ease-in-out infinite}
+.topnav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0;margin-right:1.5rem;position:relative;z-index:1}
+.topnav-logo img{height:30px;width:auto;filter:brightness(1.1)}
+.topnav-logo-text{display:flex;flex-direction:column;line-height:1.1}
+.topnav-logo-text span{font-family:'ValeSans-Bold-web',sans-serif;font-size:.72rem;color:#fff;letter-spacing:.05em;text-transform:uppercase}
+.topnav-logo-text small{font-family:'ValeSans-Regular-web',sans-serif;font-size:.58rem;color:rgba(255,255,255,.45);letter-spacing:.08em;text-transform:uppercase}
+.topnav-divider{width:1px;height:32px;background:rgba(255,255,255,.1);flex-shrink:0;margin-right:1rem}
+.topnav-links{display:flex;align-items:center;gap:.15rem;flex:1;position:relative;z-index:1}
+.topnav-link{display:flex;align-items:center;gap:.4rem;padding:.5rem .85rem;border-radius:.45rem;font-family:'ValeSans-Semibold-web',sans-serif;font-size:.72rem;letter-spacing:.04em;color:rgba(255,255,255,.55);text-decoration:none;white-space:nowrap;transition:color .18s,background .18s;position:relative}
+.topnav-link i{font-size:.72rem}
+.topnav-link:hover{color:rgba(255,255,255,.9);background:rgba(255,255,255,.07)}
+.topnav-link.active{color:#fff;background:rgba(60,181,229,.18)}
+.topnav-link.active::after{content:'';position:absolute;bottom:-1px;left:.5rem;right:.5rem;height:2px;background:var(--vbm-blue);border-radius:2px 2px 0 0}
+.topnav-badge{font-size:.55rem;padding:.1rem .35rem;border-radius:10rem;background:#c2770e;color:#fff;font-family:'ValeSans-Bold-web',sans-serif;line-height:1.4}
+.topnav-sep{width:1px;height:20px;background:rgba(255,255,255,.1);flex-shrink:0;margin:0 .4rem}
+.topnav-actions{display:flex;align-items:center;gap:.5rem;flex-shrink:0;margin-left:auto;position:relative;z-index:1}
+.topnav-icon-btn{width:34px;height:34px;border-radius:.4rem;border:none;background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;font-size:.8rem;cursor:pointer;position:relative;transition:background .18s,color .18s}
+.topnav-icon-btn:hover{background:rgba(255,255,255,.12);color:#fff}
+.topnav-notif-dot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#ef4444;border:1.5px solid #041523}
+.topnav-user{display:flex;align-items:center;gap:.5rem;padding:.3rem .65rem .3rem .3rem;border-radius:.4rem;background:rgba(255,255,255,.06);cursor:pointer;transition:background .18s}
+.topnav-user:hover{background:rgba(255,255,255,.1)}
+.topnav-user-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--vbm-blue) 0%,var(--vbm-blue-dark) 100%);display:flex;align-items:center;justify-content:center;font-family:'ValeSans-Bold-web',sans-serif;font-size:.6rem;color:#fff;flex-shrink:0;position:relative}
+.topnav-user-avatar::after{content:'';position:absolute;bottom:0;right:0;width:7px;height:7px;border-radius:50%;background:#16a34a;border:1.5px solid #041523}
+.topnav-user-name{font-family:'ValeSans-Semibold-web',sans-serif;font-size:.72rem;color:rgba(255,255,255,.85)}
+.topnav-user-role{font-size:.6rem;color:rgba(255,255,255,.4)}
+.topnav-mobile-toggle{display:none;width:34px;height:34px;border-radius:.4rem;border:none;background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);align-items:center;justify-content:center;font-size:.85rem;cursor:pointer;flex-shrink:0}
+.topnav-drawer{display:none;position:fixed;top:64px;left:0;right:0;background:#020e1c;border-bottom:1px solid rgba(60,181,229,.15);z-index:299;padding:.75rem 1rem;flex-direction:column;gap:.25rem;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.topnav-drawer.open{display:flex}
+.topnav-drawer .topnav-link{font-size:.8rem;padding:.65rem .9rem}
+.app-main{padding-top:64px}
+.breadcrumb-bar{background:#fff;border-bottom:1px solid #eaf0f8;padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+.breadcrumb-title{font-family:'ValeSans-Bold-web',sans-serif;font-size:.88rem;color:var(--vbm-dark)}
+.breadcrumb-path{font-size:.72rem;color:var(--vbm-mid);display:flex;align-items:center;gap:.3rem}
+.breadcrumb-path .sep{color:#ccc}
+.breadcrumb-actions{display:flex;gap:.5rem;align-items:center}
+@media(max-width:960px){.topnav-links{display:none}.topnav-mobile-toggle{display:flex}.topnav-divider{display:none}.topnav-user-role{display:none}}
+@media(max-width:540px){.topnav-user-name{display:none}.topnav-logo-text{display:none}}
+/* ─── Approval panel ─── */
+.approval-detail-panel {
+  background: #fff;
+  border-radius: 1rem;
+  border: 1px solid #eaeaea;
+  overflow: hidden;
+  position: sticky;
+  top: calc(64px + 1.75rem);
+  max-height: calc(100vh - 64px - 3.5rem);
+  overflow-y: auto;
+  display: none;
+}
+.approval-detail-panel.visible { display: block; animation: fadeIn .3s ease; }
+</style>
+</head>
+<body>
+<div class="app-layout">
+
+<nav class="topnav" id="topnav">
+  <a href="index_topo.html" class="topnav-logo">
+    <img src="valebasemetals.com/assets/e53b66dd377e03d4_logo.svg" alt="VBM"/>
+    <div class="topnav-logo-text"><span>Vale Base Metals</span><small>Kaizen System</small></div>
+  </a>
+  <div class="topnav-divider"></div>
+  <div class="topnav-links">
+    <a href="index_topo.html" class="topnav-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+    <a href="kaizen-novo_topo.html" class="topnav-link"><i class="fa-solid fa-plus-circle"></i> Novo Kaizen</a>
+    <div class="topnav-sep"></div>
+    <a href="meus-projetos_topo.html" class="topnav-link"><i class="fa-solid fa-folder-open"></i> Meus Projetos</a>
+    <a href="biblioteca_topo.html" class="topnav-link"><i class="fa-solid fa-book"></i> Biblioteca</a>
+    <a href="aprovacao_topo.html" class="topnav-link active"><i class="fa-solid fa-clipboard-check"></i> Aprovação<span class="topnav-badge">3</span></a>
+    <div class="topnav-sep"></div>
+    <a href="admin_topo.html" class="topnav-link"><i class="fa-solid fa-shield-halved"></i> Administração</a>
+  </div>
+  <div class="topnav-actions">
+    <button class="topnav-icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <button class="topnav-icon-btn"><i class="fa-solid fa-bell"></i><div class="topnav-notif-dot"></div></button>
+    <div class="topnav-user">
+      <div class="topnav-user-avatar">JS</div>
+      <div><div class="topnav-user-name">João Silva</div><div class="topnav-user-role">Aprovador · Sudbury</div></div>
+      <i class="fa-solid fa-chevron-down" style="font-size:.5rem;color:rgba(255,255,255,.3);margin-left:.1rem;"></i>
+    </div>
+    <button class="topnav-mobile-toggle" id="mobileToggle"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+<div class="topnav-drawer" id="topnavDrawer">
+  <a href="index_topo.html" class="topnav-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+  <a href="kaizen-novo_topo.html" class="topnav-link"><i class="fa-solid fa-plus-circle"></i> Novo Kaizen</a>
+  <a href="meus-projetos_topo.html" class="topnav-link"><i class="fa-solid fa-folder-open"></i> Meus Projetos</a>
+  <a href="biblioteca_topo.html" class="topnav-link"><i class="fa-solid fa-book"></i> Biblioteca</a>
+  <a href="aprovacao_topo.html" class="topnav-link active"><i class="fa-solid fa-clipboard-check"></i> Aprovação<span class="topnav-badge">3</span></a>
+  <a href="admin_topo.html" class="topnav-link"><i class="fa-solid fa-shield-halved"></i> Administração</a>
+</div>
+
+<main class="app-main">
+  <div class="breadcrumb-bar">
+    <div>
+      <div class="breadcrumb-title">Painel de Aprovação</div>
+      <div class="breadcrumb-path"><span>VBM Kaizen</span><span class="sep">/</span><span>Aprovação</span></div>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <div class="page-header">
+      <div>
+        <div class="page-header-title">Painel de Aprovação</div>
+        <div class="page-header-sub">Revise, aprove ou devolva os Kaizens submetidos da sua unidade</div>
+      </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="stats-grid reveal" style="grid-template-columns:repeat(4,1fr);margin-bottom:1.25rem;">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-orange"><i class="fa-solid fa-clock"></i></div>
+        <div class="stat-body">
+          <div class="stat-num" data-counter data-target="3">0</div>
+          <div class="stat-label">Pendentes</div>
+          <div class="stat-trend" style="color:#c2770e;"><i class="fa-solid fa-exclamation-triangle"></i> Ação necessária</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-green"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="stat-body">
+          <div class="stat-num" data-counter data-target="28">0</div>
+          <div class="stat-label">Aprovados (2026)</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon-red"><i class="fa-solid fa-circle-xmark"></i></div>
+        <div class="stat-body">
+          <div class="stat-num" data-counter data-target="4">0</div>
+          <div class="stat-label">Reprovados (2026)</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:#f0f4ff;"><i class="fa-solid fa-gauge" style="color:#4f46e5;"></i></div>
+        <div class="stat-body">
+          <div class="stat-num" style="font-size:1.9rem;font-family:'ValeSans-Bold-web';">87%</div>
+          <div class="stat-label">Taxa de aprovação</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two column layout: list + detail -->
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:1.25rem;align-items:start;">
+
+      <!-- Left: Approval Queue -->
+      <div>
+        <div class="section-card reveal">
+          <div class="section-card-head">
+            <div class="section-card-icon" style="background:#fff4e5;"><i class="fa-solid fa-clock" style="color:#c2770e;"></i></div>
+            <div class="section-card-title">Pendentes de Aprovação</div>
+            <span class="badge badge-pending">3</span>
+          </div>
+          <div style="padding:.75rem;">
+            <div class="approval-item selected" onclick="document.getElementById('approvalDetail').classList.add('visible');document.getElementById('approvalDetail').style.display='block'">
+              <div class="approval-icon" style="background:#fff4e5;"><i class="fa-solid fa-gear" style="color:#c2770e;"></i></div>
+              <div class="approval-info">
+                <div class="approval-title">Redução de tempo de setup na linha 3</div>
+                <div class="approval-meta">João Silva · KZN-2026-047 · Há 2 horas</div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="color:#ccc;font-size:.7rem;flex-shrink:0;"></i>
+            </div>
+            <div class="approval-item" onclick="document.getElementById('approvalDetail').classList.add('visible');document.getElementById('approvalDetail').style.display='block'">
+              <div class="approval-icon" style="background:#e8f8f0;"><i class="fa-solid fa-leaf" style="color:#16a34a;"></i></div>
+              <div class="approval-info">
+                <div class="approval-title">Gestão de resíduos na fundição</div>
+                <div class="approval-meta">Ana Lima · KZN-2026-045 · Há 1 dia</div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="color:#ccc;font-size:.7rem;flex-shrink:0;"></i>
+            </div>
+            <div class="approval-item" onclick="document.getElementById('approvalDetail').classList.add('visible');document.getElementById('approvalDetail').style.display='block'">
+              <div class="approval-icon"><i class="fa-solid fa-users" style="color:var(--vbm-blue);"></i></div>
+              <div class="approval-info">
+                <div class="approval-title">Treinamento cruzado operadores</div>
+                <div class="approval-meta">Carlos Pereira · KZN-2026-043 · Há 2 dias</div>
+              </div>
+              <i class="fa-solid fa-chevron-right" style="color:#ccc;font-size:.7rem;flex-shrink:0;"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- History -->
+        <div class="section-card reveal" style="margin-top:1.1rem;">
+          <div class="section-card-head">
+            <div class="section-card-icon"><i class="fa-solid fa-history"></i></div>
+            <div class="section-card-title">Histórico Recente</div>
+          </div>
+          <div style="padding:.5rem .75rem;">
+            <div style="display:flex;align-items:center;gap:.75rem;padding:.7rem .5rem;border-bottom:1px solid #f5f5f5;">
+              <div style="width:30px;height:30px;border-radius:50%;background:#e8f8f0;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-check" style="color:#16a34a;font-size:.75rem;"></i></div>
+              <div style="flex:1;">
+                <div style="font-size:.78rem;font-family:'ValeSans-Semibold-web';color:var(--vbm-dark);">Padronização EPI Zona Mineração</div>
+                <div style="font-size:.65rem;color:var(--vbm-mid);">Aprovado por você · KZN-2026-041 · Há 1 dia</div>
+              </div>
+              <span class="badge badge-aprovado" style="flex-shrink:0;">Aprovado</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:.75rem;padding:.7rem .5rem;border-bottom:1px solid #f5f5f5;">
+              <div style="width:30px;height:30px;border-radius:50%;background:#fef2f2;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-xmark" style="color:#dc2626;font-size:.75rem;"></i></div>
+              <div style="flex:1;">
+                <div style="font-size:.78rem;font-family:'ValeSans-Semibold-web';color:var(--vbm-dark);">Melhoria fluxo manutenção preventiva</div>
+                <div style="font-size:.65rem;color:var(--vbm-mid);">Reprovado por você · KZN-2026-029 · Há 3 dias</div>
+              </div>
+              <span class="badge badge-reprovado" style="flex-shrink:0;">Reprovado</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:.75rem;padding:.7rem .5rem;">
+              <div style="width:30px;height:30px;border-radius:50%;background:#e8f8f0;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fa-solid fa-check" style="color:#16a34a;font-size:.75rem;"></i></div>
+              <div style="flex:1;">
+                <div style="font-size:.78rem;font-family:'ValeSans-Semibold-web';color:var(--vbm-dark);">Otimização energia britador</div>
+                <div style="font-size:.65rem;color:var(--vbm-mid);">Aprovado por você · KZN-2026-038 · Há 4 dias</div>
+              </div>
+              <span class="badge badge-aprovado" style="flex-shrink:0;">Aprovado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Detail panel -->
+      <div class="approval-detail-panel" id="approvalDetail" style="display:block;">
+        <!-- Header dark -->
+        <div style="background:linear-gradient(135deg,#041523,#082d4f);padding:1.5rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(60,181,229,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(60,181,229,.04) 1px,transparent 1px);background-size:25px 25px;pointer-events:none;"></div>
+          <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(60,181,229,.18) 0%,transparent 65%);filter:blur(30px);animation:orb1 15s ease-in-out infinite;pointer-events:none;"></div>
+          <div style="position:relative;z-index:1;display:flex;align-items:flex-start;gap:.75rem;">
+            <div style="flex:1;">
+              <div style="font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.35rem;">KZN-2026-047 · Produção · Sudbury</div>
+              <div style="font-family:'ValeSans-Bold-web';color:#fff;font-size:1.1rem;margin-bottom:.6rem;">Redução de tempo de setup na linha 3</div>
+              <div style="display:flex;flex-wrap:wrap;gap:.4rem 1rem;">
+                <div style="font-size:.7rem;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:.25rem;"><i class="fa-solid fa-user" style="color:var(--vbm-blue);"></i> João Silva</div>
+                <div style="font-size:.7rem;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:.25rem;"><i class="fa-solid fa-calendar" style="color:var(--vbm-blue);"></i> Jun 2026</div>
+                <div style="font-size:.7rem;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:.25rem;"><i class="fa-solid fa-users" style="color:var(--vbm-blue);"></i> 3 membros</div>
+              </div>
+            </div>
+            <span class="badge badge-aguardando">Aguardando</span>
+          </div>
+        </div>
+
+        <!-- Sections -->
+        <div style="padding:1.25rem;">
+
+          <!-- Problem & Goal -->
+          <div class="kd-section" style="margin-bottom:1rem;">
+            <div class="kd-section-head">
+              <div class="kd-section-icon"><i class="fa-solid fa-bullseye"></i></div>
+              <div class="kd-section-title">Problema &amp; Objetivo</div>
+            </div>
+            <div class="kd-section-body" style="font-size:.83rem;color:var(--vbm-text);line-height:1.65;">
+              <p style="margin-bottom:.5rem;"><strong>Problema:</strong> Setup da linha 3 excede 45 min, gerando 8% de perda diária de produtividade. Falta padronização no processo.</p>
+              <p><strong>Objetivo:</strong> Reduzir para 25 min com shadowboard e procedimento visual na linha.</p>
+            </div>
+          </div>
+
+          <!-- Before & After -->
+          <div class="kd-section" style="margin-bottom:1rem;">
+            <div class="kd-section-head">
+              <div class="kd-section-icon"><i class="fa-solid fa-camera"></i></div>
+              <div class="kd-section-title">Antes &amp; Depois</div>
+            </div>
+            <div class="kd-section-body">
+              <div class="kd-before-after">
+                <div class="kd-photo-box">
+                  <img src="valebasemetals.com/assets/ce66108fa7e62190_Our-Operations_E2_80_8B.webp" alt="Antes"/>
+                  <div class="kd-photo-box-body"><div class="kd-photo-label">Antes</div><div class="kd-photo-desc">Ferramentas desorganizadas.</div></div>
+                </div>
+                <div class="kd-photo-box">
+                  <img src="valebasemetals.com/assets/73e6a83bc9ed2360_Our-products.webp" alt="Depois"/>
+                  <div class="kd-photo-box-body"><div class="kd-photo-label">Depois</div><div class="kd-photo-desc">Shadowboard organizado.</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="kd-section" style="margin-bottom:1.25rem;">
+            <div class="kd-section-head">
+              <div class="kd-section-icon"><i class="fa-solid fa-chart-line"></i></div>
+              <div class="kd-section-title">Valor Gerado</div>
+            </div>
+            <div class="kd-section-body">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:.65rem;">
+                <div style="background:var(--vbm-off-white);border-radius:.5rem;padding:.75rem;border-left:3px solid #16a34a;">
+                  <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:#16a34a;margin-bottom:.2rem;">Redução Tempo</div>
+                  <div style="font-family:'ValeSans-Bold-web';font-size:1.3rem;color:var(--vbm-dark);">-42%</div>
+                  <div style="font-size:.68rem;color:var(--vbm-mid);">45 → 26 minutos</div>
+                </div>
+                <div style="background:var(--vbm-off-white);border-radius:.5rem;padding:.75rem;border-left:3px solid var(--vbm-blue);">
+                  <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--vbm-blue);margin-bottom:.2rem;">Ganho OEE</div>
+                  <div style="font-family:'ValeSans-Bold-web';font-size:1.3rem;color:var(--vbm-dark);">+8%</div>
+                  <div style="font-size:.68rem;color:var(--vbm-mid);">No turno operacional</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Approval actions -->
+          <div style="background:var(--vbm-off-white);border-radius:.75rem;padding:1.25rem;border:1px solid #eaeaea;">
+            <div style="font-family:'ValeSans-Bold-web';font-size:.85rem;color:var(--vbm-dark);margin-bottom:.75rem;">
+              <i class="fa-solid fa-clipboard-check" style="color:var(--vbm-blue);margin-right:.4rem;"></i>
+              Decisão de Aprovação
+            </div>
+            <div class="form-group">
+              <label class="form-label">Comentário do Aprovador</label>
+              <textarea class="form-control" rows="3" placeholder="Deixe um feedback para o autor (obrigatório ao reprovar)..."></textarea>
+            </div>
+            <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
+              <button class="btn btn-success" style="flex:1;" onclick="handleApprove()">
+                <i class="fa-solid fa-circle-check"></i> Aprovar Kaizen
+              </button>
+              <button class="btn btn-ghost" style="flex:1;" onclick="openModal('modalEditKaizen')">
+                <i class="fa-solid fa-pen"></i> Editar e Aprovar
+              </button>
+              <button class="btn btn-danger" style="flex:1;" onclick="handleReject()">
+                <i class="fa-solid fa-circle-xmark"></i> Reprovar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+</div>
+
+<!-- Modal: Editar Kaizen (aprovador) -->
+<div class="modal-backdrop" id="modalEditKaizen">
+  <div class="modal modal-lg">
+    <div class="modal-head">
+      <div class="modal-icon" style="background:var(--vbm-blue-pale);"><i class="fa-solid fa-pen" style="color:var(--vbm-blue);"></i></div>
+      <div class="modal-title">Editar Kaizen (como Aprovador)</div>
+      <button class="modal-close" data-modal-close><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="background:#fff4e5;border-radius:.5rem;padding:.85rem;margin-bottom:1.25rem;border:1px solid rgba(194,119,14,.2);display:flex;align-items:flex-start;gap:.6rem;">
+        <i class="fa-solid fa-triangle-exclamation" style="color:#c2770e;margin-top:.05rem;"></i>
+        <div style="font-size:.8rem;color:#92400e;line-height:1.55;">Como aprovador, você pode editar os campos deste Kaizen antes de aprová-lo. Suas alterações serão registradas no histórico.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Título</label>
+        <input type="text" class="form-control" value="Redução de tempo de setup na linha 3"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Objetivo / Meta</label>
+        <textarea class="form-control" rows="3">Reduzir o tempo de setup para menos de 25 minutos através da padronização do processo e reorganização das ferramentas.</textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Resultados Alcançados</label>
+        <select class="form-control">
+          <option selected>Aumento de produtividade</option>
+          <option>Redução de custo</option>
+          <option>Melhoria de qualidade</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" data-modal-close>Cancelar</button>
+      <button class="btn btn-success" onclick="handleApprove();closeModal('modalEditKaizen')">
+        <i class="fa-solid fa-circle-check"></i> Salvar e Aprovar
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container"></div>
+<script src="valebasemetals.com/assets/c40ab0f1d7d3a179_jquery.js"></script>
+<script src="valebasemetals.com/assets/a5ae4d56c21cbbd8_bootstrap.js"></script>
+<script src="valebasemetals.com/assets/ac5dfacf56be7b60_aos.js"></script>
+<script src="assets/vbm-app.js"></script>
+<script>
+function handleApprove() {
+  showToast('success', 'Kaizen Aprovado!', 'KZN-2026-047 foi aprovado. O autor será notificado por e-mail.');
+  setTimeout(function() {
+    document.querySelector('.approval-item.selected').remove();
+    document.getElementById('approvalDetail').style.display = 'none';
+  }, 1000);
+}
+function handleReject() {
+  const comment = document.querySelector('.approval-detail-panel textarea').value;
+  if (!comment.trim()) {
+    showToast('error', 'Campo obrigatório', 'Insira um comentário explicando o motivo da reprovação.', 4000);
+    return;
+  }
+  showToast('warning', 'Kaizen Reprovado', 'KZN-2026-047 foi reprovado. O autor receberá o feedback por e-mail.');
+  setTimeout(function() {
+    document.querySelector('.approval-item.selected').remove();
+    document.getElementById('approvalDetail').style.display = 'none';
+  }, 1000);
+}
+(function(){
+  var btn=document.getElementById('mobileToggle'),drawer=document.getElementById('topnavDrawer');
+  if(btn&&drawer){
+    btn.addEventListener('click',function(){
+      var o=drawer.classList.toggle('open');
+      btn.querySelector('i').className=o?'fa-solid fa-xmark':'fa-solid fa-bars';
+    });
+    document.addEventListener('click',function(e){
+      if(!btn.contains(e.target)&&!drawer.contains(e.target)){
+        drawer.classList.remove('open');
+        btn.querySelector('i').className='fa-solid fa-bars';
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

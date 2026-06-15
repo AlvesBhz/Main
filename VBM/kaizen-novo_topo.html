@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>VBM Kaizen — Novo Kaizen</title>
+<link href="valebasemetals.com/assets/e9e335be0f29bc9f_bootstrap.css" rel="stylesheet"/>
+<link href="valebasemetals.com/assets/7a7fe288041d703f_aos.css" rel="stylesheet"/>
+<link href="valebasemetals.com/assets/e5e202e3c8995079_all.min.css" rel="stylesheet"/>
+<link href="assets/vbm-app.css" rel="stylesheet"/>
+<link href="valebasemetals.com/assets/a1922a98664cc516_favicon-32x32-1.png" rel="icon"/>
+<style>
+.app-layout{display:block;min-height:100vh}.app-main{margin-left:0}
+.topnav{position:fixed;top:0;left:0;right:0;z-index:300;height:64px;background:linear-gradient(90deg,#020e1c 0%,#041523 40%,#082d4f 80%,#0a3560 100%);display:flex;align-items:center;padding:0 1.5rem;border-bottom:1px solid rgba(60,181,229,.15);box-shadow:0 4px 24px rgba(0,0,0,.35)}
+.topnav::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(60,181,229,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(60,181,229,.03) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.topnav::after{content:'';position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(60,181,229,.14) 0%,transparent 65%);top:-120px;right:200px;pointer-events:none;animation:orb1 22s ease-in-out infinite}
+.topnav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex-shrink:0;margin-right:1.5rem;position:relative;z-index:1}
+.topnav-logo img{height:30px;width:auto;filter:brightness(1.1)}
+.topnav-logo-text{display:flex;flex-direction:column;line-height:1.1}
+.topnav-logo-text span{font-family:'ValeSans-Bold-web',sans-serif;font-size:.72rem;color:#fff;letter-spacing:.05em;text-transform:uppercase}
+.topnav-logo-text small{font-family:'ValeSans-Regular-web',sans-serif;font-size:.58rem;color:rgba(255,255,255,.45);letter-spacing:.08em;text-transform:uppercase}
+.topnav-divider{width:1px;height:32px;background:rgba(255,255,255,.1);flex-shrink:0;margin-right:1rem}
+.topnav-links{display:flex;align-items:center;gap:.15rem;flex:1;position:relative;z-index:1}
+.topnav-link{display:flex;align-items:center;gap:.4rem;padding:.5rem .85rem;border-radius:.45rem;font-family:'ValeSans-Semibold-web',sans-serif;font-size:.72rem;letter-spacing:.04em;color:rgba(255,255,255,.55);text-decoration:none;white-space:nowrap;transition:color .18s,background .18s;position:relative}
+.topnav-link i{font-size:.72rem}
+.topnav-link:hover{color:rgba(255,255,255,.9);background:rgba(255,255,255,.07)}
+.topnav-link.active{color:#fff;background:rgba(60,181,229,.18)}
+.topnav-link.active::after{content:'';position:absolute;bottom:-1px;left:.5rem;right:.5rem;height:2px;background:var(--vbm-blue);border-radius:2px 2px 0 0}
+.topnav-badge{font-size:.55rem;padding:.1rem .35rem;border-radius:10rem;background:#c2770e;color:#fff;font-family:'ValeSans-Bold-web',sans-serif;line-height:1.4}
+.topnav-sep{width:1px;height:20px;background:rgba(255,255,255,.1);flex-shrink:0;margin:0 .4rem}
+.topnav-actions{display:flex;align-items:center;gap:.5rem;flex-shrink:0;margin-left:auto;position:relative;z-index:1}
+.topnav-icon-btn{width:34px;height:34px;border-radius:.4rem;border:none;background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;font-size:.8rem;cursor:pointer;position:relative;transition:background .18s,color .18s}
+.topnav-icon-btn:hover{background:rgba(255,255,255,.12);color:#fff}
+.topnav-notif-dot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#ef4444;border:1.5px solid #041523}
+.topnav-user{display:flex;align-items:center;gap:.5rem;padding:.3rem .65rem .3rem .3rem;border-radius:.4rem;background:rgba(255,255,255,.06);cursor:pointer;transition:background .18s}
+.topnav-user:hover{background:rgba(255,255,255,.1)}
+.topnav-user-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--vbm-blue) 0%,var(--vbm-blue-dark) 100%);display:flex;align-items:center;justify-content:center;font-family:'ValeSans-Bold-web',sans-serif;font-size:.6rem;color:#fff;flex-shrink:0;position:relative}
+.topnav-user-avatar::after{content:'';position:absolute;bottom:0;right:0;width:7px;height:7px;border-radius:50%;background:#16a34a;border:1.5px solid #041523}
+.topnav-user-name{font-family:'ValeSans-Semibold-web',sans-serif;font-size:.72rem;color:rgba(255,255,255,.85)}
+.topnav-user-role{font-size:.6rem;color:rgba(255,255,255,.4)}
+.topnav-mobile-toggle{display:none;width:34px;height:34px;border-radius:.4rem;border:none;background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);align-items:center;justify-content:center;font-size:.85rem;cursor:pointer;flex-shrink:0}
+.topnav-drawer{display:none;position:fixed;top:64px;left:0;right:0;background:#020e1c;border-bottom:1px solid rgba(60,181,229,.15);z-index:299;padding:.75rem 1rem;flex-direction:column;gap:.25rem;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.topnav-drawer.open{display:flex}
+.topnav-drawer .topnav-link{font-size:.8rem;padding:.65rem .9rem}
+.app-main{padding-top:64px}
+.breadcrumb-bar{background:#fff;border-bottom:1px solid #eaf0f8;padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+.breadcrumb-title{font-family:'ValeSans-Bold-web',sans-serif;font-size:.88rem;color:var(--vbm-dark)}
+.breadcrumb-path{font-size:.72rem;color:var(--vbm-mid);display:flex;align-items:center;gap:.3rem}
+.breadcrumb-path .sep{color:#ccc}
+@media(max-width:960px){.topnav-links{display:none}.topnav-mobile-toggle{display:flex}.topnav-divider{display:none}.topnav-user-role{display:none}}
+@media(max-width:540px){.topnav-user-name{display:none}.topnav-logo-text{display:none}}
+</style>
+</head>
+<body>
+
+<nav class="topnav" id="topnav">
+  <a href="index_topo.html" class="topnav-logo">
+    <img src="valebasemetals.com/assets/e53b66dd377e03d4_logo.svg" alt="VBM"/>
+    <div class="topnav-logo-text"><span>Vale Base Metals</span><small>Kaizen System</small></div>
+  </a>
+  <div class="topnav-divider"></div>
+  <div class="topnav-links">
+    <a href="index_topo.html" class="topnav-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+    <a href="kaizen-novo_topo.html" class="topnav-link active"><i class="fa-solid fa-plus-circle"></i> Novo Kaizen</a>
+    <div class="topnav-sep"></div>
+    <a href="meus-projetos_topo.html" class="topnav-link"><i class="fa-solid fa-folder-open"></i> Meus Projetos</a>
+    <a href="biblioteca_topo.html" class="topnav-link"><i class="fa-solid fa-book"></i> Biblioteca</a>
+    <a href="aprovacao_topo.html" class="topnav-link"><i class="fa-solid fa-clipboard-check"></i> Aprovação<span class="topnav-badge">3</span></a>
+    <div class="topnav-sep"></div>
+    <a href="admin_topo.html" class="topnav-link"><i class="fa-solid fa-shield-halved"></i> Administração</a>
+  </div>
+  <div class="topnav-actions">
+    <button class="topnav-icon-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <button class="topnav-icon-btn"><i class="fa-solid fa-bell"></i><div class="topnav-notif-dot"></div></button>
+    <div class="topnav-user">
+      <div class="topnav-user-avatar">JS</div>
+      <div><div class="topnav-user-name">João Silva</div><div class="topnav-user-role">Operador · Sudbury</div></div>
+      <i class="fa-solid fa-chevron-down" style="font-size:.5rem;color:rgba(255,255,255,.3);margin-left:.1rem;"></i>
+    </div>
+    <button class="topnav-mobile-toggle" id="mobileToggle"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+
+<div class="topnav-drawer" id="topnavDrawer">
+  <a href="index_topo.html" class="topnav-link"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+  <a href="kaizen-novo_topo.html" class="topnav-link active"><i class="fa-solid fa-plus-circle"></i> Novo Kaizen</a>
+  <a href="meus-projetos_topo.html" class="topnav-link"><i class="fa-solid fa-folder-open"></i> Meus Projetos</a>
+  <a href="biblioteca_topo.html" class="topnav-link"><i class="fa-solid fa-book"></i> Biblioteca</a>
+  <a href="aprovacao_topo.html" class="topnav-link"><i class="fa-solid fa-clipboard-check"></i> Aprovação <span class="topnav-badge">3</span></a>
+  <a href="admin_topo.html" class="topnav-link"><i class="fa-solid fa-shield-halved"></i> Administração</a>
+</div>
+
+<div class="app-layout">
+<main class="app-main">
+
+  <div class="breadcrumb-bar">
+    <div>
+      <div class="breadcrumb-title">Novo Kaizen</div>
+      <div class="breadcrumb-path"><span>VBM Kaizen</span><span class="sep">/</span><span>Novo Kaizen</span></div>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div data-wizard>
+
+      <div class="wizard-header">
+        <div class="wizard-header-bg"></div>
+        <div class="wizard-header-orb" style="width:200px;height:200px;top:-60px;right:-40px;background:radial-gradient(circle,rgba(60,181,229,.18) 0%,transparent 65%);animation:orb1 18s ease-in-out infinite;filter:blur(30px);"></div>
+        <div class="wizard-header-orb" style="width:150px;height:150px;bottom:-30px;left:20%;background:radial-gradient(circle,rgba(60,181,229,.1) 0%,transparent 65%);animation:orb2 22s ease-in-out infinite;filter:blur(25px);"></div>
+
+        <div style="position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+          <div>
+            <div class="wizard-header-title">Novo Kaizen</div>
+            <div class="wizard-header-sub">Registre sua iniciativa de melhoria contínua em 5 etapas</div>
+          </div>
+          <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
+            <button class="btn btn-white-outline btn-sm" onclick="if(confirm('Descartar rascunho?'))window.location.href='index_topo.html'">
+              <i class="fa-solid fa-xmark"></i> Cancelar
+            </button>
+            <button class="btn btn-white btn-sm" onclick="showToast('info','Salvo','Rascunho salvo com sucesso.',3000)">
+              <i class="fa-solid fa-floppy-disk"></i> Salvar rascunho
+            </button>
+          </div>
+        </div>
+
+        <div class="wizard-steps" style="margin-top:1.75rem;">
+          <div class="wizard-step-item active"><div class="wizard-step-circle">1</div><div class="wizard-step-lbl">Identificação</div></div>
+          <div class="wizard-step-item"><div class="wizard-step-circle">2</div><div class="wizard-step-lbl">Classificação</div></div>
+          <div class="wizard-step-item"><div class="wizard-step-circle">3</div><div class="wizard-step-lbl">Equipe</div></div>
+          <div class="wizard-step-item"><div class="wizard-step-circle">4</div><div class="wizard-step-lbl">Execução</div></div>
+          <div class="wizard-step-item"><div class="wizard-step-circle">5</div><div class="wizard-step-lbl">Resultados</div></div>
+        </div>
+        <div style="margin-top:1.25rem;height:3px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;">
+          <div class="wizard-progress-fill" style="height:100%;background:linear-gradient(90deg,var(--vbm-blue),var(--vbm-blue-light));width:0%;transition:width .5s var(--ease-out);border-radius:3px;"></div>
+        </div>
+      </div>
+
+      <div class="wizard-body">
+
+        <!-- STEP 1 -->
+        <div class="wizard-panel active">
+          <div class="wizard-panel-title"><i class="fa-solid fa-id-card" style="color:var(--vbm-blue);margin-right:.5rem;"></i>Identificação do Kaizen</div>
+          <div class="wizard-panel-sub">Forneça as informações básicas sobre o problema e o objetivo da melhoria.</div>
+          <div class="form-grid form-grid-2">
+            <div class="form-group" style="grid-column:1/-1;">
+              <label class="form-label">Título do Kaizen <span class="req">*</span></label>
+              <input type="text" class="form-control" placeholder="Ex: Redução de tempo de setup na linha 3" style="font-size:.95rem;"/>
+              <div class="form-helper">Seja claro e objetivo. Máximo 100 caracteres.</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Unidade / Localidade <span class="req">*</span></label>
+              <select class="form-control">
+                <option value="">Selecione a unidade...</option>
+                <option selected>Sudbury, CA</option>
+                <option>Thompson, CA</option>
+                <option>Voisey's Bay, CA</option>
+                <option>Long Harbour, CA</option>
+                <option>Port Colborne, CA</option>
+                <option>Salobo, BR</option>
+                <option>Onça Puma, BR</option>
+                <option>PT Vale, ID</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Área / Departamento <span class="req">*</span></label>
+              <select class="form-control">
+                <option value="">Selecione a área...</option>
+                <option>Mineração</option><option>Processamento</option><option>Fundição</option>
+                <option>Refinaria</option><option>Manutenção</option><option>Logística</option>
+                <option>Segurança</option><option>Meio Ambiente</option><option>RH</option>
+              </select>
+            </div>
+            <div class="form-group" style="grid-column:1/-1;">
+              <label class="form-label">Declaração do Problema <span class="req">*</span></label>
+              <textarea class="form-control" rows="4" placeholder="Descreva claramente o problema identificado. Inclua dados quantitativos se disponíveis..."></textarea>
+              <div class="form-helper">Seja específico. Um bom problema bem descrito facilita a solução.</div>
+            </div>
+            <div class="form-group" style="grid-column:1/-1;">
+              <label class="form-label">Meta / Objetivo <span class="req">*</span></label>
+              <textarea class="form-control" rows="3" placeholder="Qual o resultado esperado? Defina metas mensuráveis..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Data de Início</label>
+              <input type="date" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Data Prevista de Conclusão</label>
+              <input type="date" class="form-control"/>
+            </div>
+          </div>
+          <div class="wizard-footer">
+            <span style="font-size:.75rem;color:var(--vbm-mid);">Etapa 1 de 5</span>
+            <div class="wizard-footer-right"><button class="btn btn-primary" data-wizard-next>Próximo <i class="fa-solid fa-arrow-right"></i></button></div>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="wizard-panel">
+          <div class="wizard-panel-title"><i class="fa-solid fa-tags" style="color:var(--vbm-blue);margin-right:.5rem;"></i>Classificação do Kaizen</div>
+          <div class="wizard-panel-sub">Classifique seu kaizen quanto ao tipo de problema, desperdício eliminado e potencial de replicação.</div>
+          <div style="margin-bottom:1.5rem;">
+            <label class="form-label">Tipo de Kaizen / Problema <span class="req">*</span></label>
+            <div style="font-size:.72rem;color:var(--vbm-mid);margin-bottom:.75rem;">
+              Selecione a categoria que melhor descreve o tipo de problema resolvido.
+              <button type="button" class="btn btn-outline btn-sm" style="margin-left:.5rem;" data-modal-open="modalPNR28"><i class="fa-solid fa-circle-question"></i> O que é PNR28?</button>
+            </div>
+            <div class="pnr-grid" data-pnr-group>
+              <input type="hidden" name="tipoKaizen"/>
+              <div class="pnr-item" data-value="Simples"><div class="pnr-check"><i class="fa-solid fa-check"></i></div><div class="pnr-emoji">⚡</div><div class="pnr-label">Simples</div></div>
+              <div class="pnr-item" data-value="Complexo"><div class="pnr-check"><i class="fa-solid fa-check"></i></div><div class="pnr-emoji">🔧</div><div class="pnr-label">Complexo</div></div>
+              <div class="pnr-item" data-value="Inovação"><div class="pnr-check"><i class="fa-solid fa-check"></i></div><div class="pnr-emoji">💡</div><div class="pnr-label">Inovação</div></div>
+              <div class="pnr-item" data-value="Segurança"><div class="pnr-check"><i class="fa-solid fa-check"></i></div><div class="pnr-emoji">🦺</div><div class="pnr-label">Segurança</div></div>
+              <div class="pnr-item" data-value="Qualidade"><div class="pnr-check"><i class="fa-solid fa-check"></i></div><div class="pnr-emoji">✅</div><div class="pnr-label">Qualidade</div></div>
+              <div class="pnr-item" data-value="Custo"><div class="pnr-check"><i class="fa-solid fa-check"></i></div><div class="pnr-emoji">💰</div><div class="pnr-label">Custo</div></div>
+              <div class="pnr-item" data-value="Entrega"><div class="pnr-check"><i class="fa-solid fa-check"></i></div><div class="pnr-emoji">🚚</div><div class="pnr-label">Entrega</div></div>
+              <div class="pnr-item" data-value="Meio Ambiente"><div class="pnr-check"><i class="fa-solid fa-check"></i></div><div class="pnr-emoji">🌱</div><div class="pnr-label">Meio Ambiente</div></div>
+            </div>
+          </div>
+          <div class="wizard-divider"></div>
+          <div class="form-grid form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Redução de Desperdício (Lean) <span class="req">*</span></label>
+              <select class="form-control">
+                <option value="">Selecione o tipo de desperdício...</option>
+                <option>Superprodução</option><option>Espera</option><option>Transporte desnecessário</option>
+                <option>Superprocessamento</option><option>Estoque excessivo</option>
+                <option>Movimento desnecessário</option><option>Defeitos e retrabalho</option><option>Talento não utilizado</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Potencial de Replicação <span class="req">*</span></label>
+              <select class="form-control">
+                <option value="">Selecione...</option>
+                <option>Somente esta área</option><option>Mesma unidade (múltiplas áreas)</option>
+                <option>Outras unidades no país</option><option>Todas as unidades VBM globais</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Categoria</label>
+            <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.25rem;">
+              <label class="checkbox-wrap"><input type="checkbox" checked/><span class="checkbox-label">Saúde e Segurança</span></label>
+              <label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-label">Geral</span></label>
+              <label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-label">5S</span></label>
+              <label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-label">Energia</span></label>
+              <label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-label">Sustentabilidade</span></label>
+              <label class="checkbox-wrap"><input type="checkbox"/><span class="checkbox-label">Manutenção</span></label>
+            </div>
+          </div>
+          <div class="wizard-footer">
+            <button class="btn btn-ghost" data-wizard-prev><i class="fa-solid fa-arrow-left"></i> Anterior</button>
+            <div class="wizard-footer-right">
+              <span style="font-size:.75rem;color:var(--vbm-mid);">Etapa 2 de 5</span>
+              <button class="btn btn-primary" data-wizard-next>Próximo <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="wizard-panel">
+          <div class="wizard-panel-title"><i class="fa-solid fa-users" style="color:var(--vbm-blue);margin-right:.5rem;"></i>Equipe do Projeto</div>
+          <div class="wizard-panel-sub">Defina o líder e os membros envolvidos na iniciativa de melhoria.</div>
+          <div style="background:var(--vbm-blue-pale);border-radius:.65rem;padding:1rem;margin-bottom:1.25rem;border:1px solid rgba(60,181,229,.2);display:flex;align-items:flex-start;gap:.65rem;">
+            <i class="fa-solid fa-circle-info" style="color:var(--vbm-blue);font-size:1rem;flex-shrink:0;margin-top:.05rem;"></i>
+            <div style="font-size:.8rem;color:var(--vbm-blue-dark);line-height:1.55;"><strong>Base de Dados RH (MDM):</strong> Os campos de Líder e Membros Vale são alimentados diretamente pelo sistema de RH. Digite o nome ou matrícula para filtrar os colaboradores ativos.</div>
+          </div>
+          <div class="form-grid form-grid-2">
+            <div class="form-group" style="grid-column:1/-1;">
+              <label class="form-label">Líder do Projeto <span class="req">*</span></label>
+              <div class="input-with-icon"><i class="fa-solid fa-magnifying-glass input-icon"></i><input type="text" class="form-control" value="João Silva — Matrícula 0045821" placeholder="Digite nome ou matrícula..."/></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Membros da Equipe Vale 1</label>
+              <div class="input-with-icon"><i class="fa-solid fa-magnifying-glass input-icon"></i><input type="text" class="form-control" placeholder="Buscar colaborador (MDM)..."/></div>
+              <div style="margin-top:.6rem;display:flex;flex-direction:column;gap:.4rem;">
+                <div style="display:flex;align-items:center;gap:.5rem;padding:.4rem .75rem;background:var(--vbm-off-white);border-radius:.4rem;border:1px solid #e8e8e8;">
+                  <div style="width:26px;height:26px;border-radius:50%;background:var(--vbm-blue);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#fff;font-family:'ValeSans-Bold-web';flex-shrink:0;">MT</div>
+                  <span style="font-size:.78rem;flex:1;">Maria Torres — 0045901</span>
+                  <button type="button" style="background:none;border:none;cursor:pointer;color:#ccc;font-size:.85rem;padding:0;" onclick="this.closest('div').remove()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Membros da Equipe Vale 2</label>
+              <div class="input-with-icon"><i class="fa-solid fa-magnifying-glass input-icon"></i><input type="text" class="form-control" placeholder="Buscar colaborador (MDM)..."/></div>
+              <div style="margin-top:.6rem;display:flex;flex-direction:column;gap:.4rem;">
+                <div style="display:flex;align-items:center;gap:.5rem;padding:.4rem .75rem;background:var(--vbm-off-white);border-radius:.4rem;border:1px solid #e8e8e8;">
+                  <div style="width:26px;height:26px;border-radius:50%;background:var(--vbm-blue-dark);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#fff;font-family:'ValeSans-Bold-web';flex-shrink:0;">CP</div>
+                  <span style="font-size:.78rem;flex:1;">Carlos Pereira — 0044322</span>
+                  <button type="button" style="background:none;border:none;cursor:pointer;color:#ccc;font-size:.85rem;padding:0;" onclick="this.closest('div').remove()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" style="grid-column:1/-1;">
+              <label class="form-label">Membros Externos (Terceiros)</label>
+              <textarea class="form-control" rows="2" placeholder="Liste os membros externos ao quadro Vale. Um por linha."></textarea>
+              <div class="form-helper"><i class="fa-solid fa-triangle-exclamation" style="color:#c2770e;"></i> Membros externos não têm acesso ao sistema.</div>
+            </div>
+          </div>
+          <div class="wizard-footer">
+            <button class="btn btn-ghost" data-wizard-prev><i class="fa-solid fa-arrow-left"></i> Anterior</button>
+            <div class="wizard-footer-right"><span style="font-size:.75rem;color:var(--vbm-mid);">Etapa 3 de 5</span><button class="btn btn-primary" data-wizard-next>Próximo <i class="fa-solid fa-arrow-right"></i></button></div>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="wizard-panel">
+          <div class="wizard-panel-title"><i class="fa-solid fa-camera" style="color:var(--vbm-blue);margin-right:.5rem;"></i>Situação Antes &amp; Depois</div>
+          <div class="wizard-panel-sub">Documente visualmente a situação inicial e a melhoria implementada com fotos e descrições.</div>
+          <div class="form-grid form-grid-2">
+            <div>
+              <div style="background:linear-gradient(135deg,#fef2f2,#fff);border:2px solid rgba(220,38,38,.15);border-radius:.75rem;padding:1.25rem;margin-bottom:1rem;">
+                <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;"><div style="width:8px;height:8px;border-radius:50%;background:#dc2626;"></div><span style="font-family:'ValeSans-Bold-web';font-size:.82rem;color:#dc2626;text-transform:uppercase;letter-spacing:.1em;">ANTES — Situação Atual</span></div>
+                <div class="photo-upload-zone" style="margin-bottom:.85rem;border-color:rgba(220,38,38,.2);">
+                  <input type="file" accept="image/*"/>
+                  <i class="fa-solid fa-camera photo-upload-icon" style="color:#dc2626;opacity:.5;"></i>
+                  <div class="photo-upload-text"><strong style="color:#dc2626;">Clique para adicionar foto</strong><br>PNG, JPG, WEBP até 10MB</div>
+                </div>
+                <img class="photo-preview-img" src="" alt="Foto antes"/>
+                <div class="form-group" style="margin-bottom:0;"><label class="form-label">Descrição do problema (ANTES)</label><textarea class="form-control" rows="3" placeholder="Descreva o que a foto mostra, evidenciando o problema..."></textarea></div>
+              </div>
+            </div>
+            <div>
+              <div style="background:linear-gradient(135deg,#e8f8f0,#fff);border:2px solid rgba(22,163,74,.15);border-radius:.75rem;padding:1.25rem;margin-bottom:1rem;">
+                <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;"><div style="width:8px;height:8px;border-radius:50%;background:#16a34a;animation:glowPulse 2s infinite;"></div><span style="font-family:'ValeSans-Bold-web';font-size:.82rem;color:#16a34a;text-transform:uppercase;letter-spacing:.1em;">DEPOIS — Solução Implementada</span></div>
+                <div class="photo-upload-zone" style="margin-bottom:.85rem;border-color:rgba(22,163,74,.2);">
+                  <input type="file" accept="image/*"/>
+                  <i class="fa-solid fa-camera photo-upload-icon" style="color:#16a34a;opacity:.5;"></i>
+                  <div class="photo-upload-text"><strong style="color:#16a34a;">Clique para adicionar foto</strong><br>PNG, JPG, WEBP até 10MB</div>
+                </div>
+                <img class="photo-preview-img" src="" alt="Foto depois"/>
+                <div class="form-group" style="margin-bottom:0;"><label class="form-label">Descrição da melhoria (DEPOIS)</label><textarea class="form-control" rows="3" placeholder="Descreva a solução implementada e o que mudou..."></textarea></div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Descrição da Ação / Plano de Implementação</label>
+            <textarea class="form-control" rows="4" placeholder="Detalhe o que foi feito para implementar a melhoria..."></textarea>
+          </div>
+          <div class="wizard-footer">
+            <button class="btn btn-ghost" data-wizard-prev><i class="fa-solid fa-arrow-left"></i> Anterior</button>
+            <div class="wizard-footer-right"><span style="font-size:.75rem;color:var(--vbm-mid);">Etapa 4 de 5</span><button class="btn btn-primary" data-wizard-next>Próximo <i class="fa-solid fa-arrow-right"></i></button></div>
+          </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="wizard-panel">
+          <div class="wizard-panel-title"><i class="fa-solid fa-chart-line" style="color:var(--vbm-blue);margin-right:.5rem;"></i>Resultados &amp; Valor Gerado</div>
+          <div class="wizard-panel-sub">Quantifique o impacto real da melhoria no negócio.</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.5rem;">
+            <div style="border:2px solid #eaeaea;border-radius:.75rem;padding:1rem;text-align:center;cursor:pointer;" onclick="this.style.borderColor='var(--vbm-blue)'">
+              <i class="fa-solid fa-coins" style="font-size:1.5rem;color:var(--vbm-blue);margin-bottom:.5rem;display:block;"></i>
+              <div style="font-family:'ValeSans-Bold-web';font-size:.78rem;color:var(--vbm-dark);">Ganho Financeiro</div>
+              <div style="font-size:.65rem;color:var(--vbm-mid);">Redução de custo</div>
+            </div>
+            <div style="border:2px solid #eaeaea;border-radius:.75rem;padding:1rem;text-align:center;cursor:pointer;" onclick="this.style.borderColor='var(--vbm-blue)'">
+              <i class="fa-solid fa-gauge-high" style="font-size:1.5rem;color:var(--vbm-blue);margin-bottom:.5rem;display:block;"></i>
+              <div style="font-family:'ValeSans-Bold-web';font-size:.78rem;color:var(--vbm-dark);">Ganho de Produtividade</div>
+              <div style="font-size:.65rem;color:var(--vbm-mid);">Mais eficiência</div>
+            </div>
+            <div style="border:2px solid #eaeaea;border-radius:.75rem;padding:1rem;text-align:center;cursor:pointer;" onclick="this.style.borderColor='var(--vbm-blue)'">
+              <i class="fa-solid fa-shield-halved" style="font-size:1.5rem;color:var(--vbm-blue);margin-bottom:.5rem;display:block;"></i>
+              <div style="font-family:'ValeSans-Bold-web';font-size:.78rem;color:var(--vbm-dark);">Segurança / Qualidade</div>
+              <div style="font-size:.65rem;color:var(--vbm-mid);">Redução de riscos</div>
+            </div>
+          </div>
+          <div class="form-grid form-grid-2">
+            <div class="form-group" style="grid-column:1/-1;">
+              <label class="form-label">O que está gerando de valor para o negócio? <span class="req">*</span></label>
+              <textarea class="form-control" rows="4" placeholder="Descreva claramente o valor gerado: redução de custos, melhoria de segurança, ganho de produtividade..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Resultados Alcançados <span class="req">*</span></label>
+              <select class="form-control">
+                <option value="">Selecione o tipo de resultado...</option>
+                <option>Redução de custo</option><option>Aumento de produtividade</option>
+                <option>Melhoria de qualidade</option><option>Redução de acidentes/incidentes</option>
+                <option>Redução de impacto ambiental</option><option>Melhoria de ergonomia</option>
+                <option>Padronização de processo</option><option>Eliminação de retrabalho</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Economia Estimada (USD/ano)</label>
+              <div class="input-with-icon"><i class="fa-solid fa-dollar-sign input-icon"></i><input type="number" class="form-control" placeholder="0.00" style="padding-left:2.4rem;"/></div>
+            </div>
+            <div class="form-group"><label class="form-label">Data de Conclusão Real</label><input type="date" class="form-control"/></div>
+            <div class="form-group" style="grid-column:1/-1;">
+              <label class="form-label">Aprendizados e Observações</label>
+              <textarea class="form-control" rows="3" placeholder="O que aprendemos? O que faria diferente? Lições para a equipe..."></textarea>
+            </div>
+          </div>
+          <div style="background:var(--vbm-off-white);border-radius:.65rem;padding:1.1rem;margin-top:.5rem;border:1px solid #e8e8e8;">
+            <label class="checkbox-wrap" style="gap:.75rem;">
+              <input type="checkbox"/>
+              <span class="checkbox-label" style="font-size:.82rem;line-height:1.5;">Confirmo que as informações são precisas e que estou ciente que este Kaizen será enviado para aprovação pelo aprovador responsável da minha unidade.</span>
+            </label>
+          </div>
+          <div class="wizard-footer">
+            <button class="btn btn-ghost" data-wizard-prev><i class="fa-solid fa-arrow-left"></i> Anterior</button>
+            <div class="wizard-footer-right">
+              <span style="font-size:.75rem;color:var(--vbm-mid);">Etapa 5 de 5</span>
+              <button class="btn btn-success" data-wizard-submit style="display:none;"><i class="fa-solid fa-paper-plane"></i> Enviar para Aprovação</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- Modal PNR28 -->
+<div class="modal-backdrop" id="modalPNR28">
+  <div class="modal modal-lg">
+    <div class="modal-head">
+      <div class="modal-icon" style="background:var(--vbm-blue-pale);"><i class="fa-solid fa-circle-question" style="color:var(--vbm-blue);"></i></div>
+      <div class="modal-title">Tipos de Kaizen — Guia de Classificação</div>
+      <button class="modal-close" data-modal-close><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="background:linear-gradient(135deg,#041523,#082d4f);border-radius:.75rem;padding:1.5rem;margin-bottom:1.25rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(60,181,229,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(60,181,229,.04) 1px,transparent 1px);background-size:25px 25px;"></div>
+        <div style="position:relative;z-index:1;">
+          <p style="font-size:.68rem;text-transform:uppercase;letter-spacing:.2em;color:var(--vbm-blue-light);margin-bottom:.5rem;">Guia Visual de Classificação</p>
+          <h3 style="font-family:'ValeSans-Bold-web';color:#fff;font-size:1.2rem;margin-bottom:.4rem;">Como classificar seu Kaizen?</h3>
+          <p style="font-size:.82rem;color:rgba(255,255,255,.6);">Selecione o tipo que melhor representa a natureza do problema que está sendo solucionado.</p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+        <div style="border:1px solid #eaeaea;border-radius:.65rem;padding:1rem;"><div style="font-size:1.5rem;margin-bottom:.4rem;">⚡</div><div style="font-family:'ValeSans-Bold-web';font-size:.85rem;color:var(--vbm-dark);margin-bottom:.3rem;">Simples</div><div style="font-size:.75rem;color:var(--vbm-mid);line-height:1.55;">Melhoria rápida, implementada em menos de 1 semana, sem necessidade de aprovação de investimento.</div></div>
+        <div style="border:1px solid #eaeaea;border-radius:.65rem;padding:1rem;"><div style="font-size:1.5rem;margin-bottom:.4rem;">🔧</div><div style="font-family:'ValeSans-Bold-web';font-size:.85rem;color:var(--vbm-dark);margin-bottom:.3rem;">Complexo</div><div style="font-size:.75rem;color:var(--vbm-mid);line-height:1.55;">Envolve múltiplas equipes ou áreas, pode requerer orçamento e tem prazo de implementação maior.</div></div>
+        <div style="border:1px solid #eaeaea;border-radius:.65rem;padding:1rem;"><div style="font-size:1.5rem;margin-bottom:.4rem;">💡</div><div style="font-family:'ValeSans-Bold-web';font-size:.85rem;color:var(--vbm-dark);margin-bottom:.3rem;">Inovação</div><div style="font-size:.75rem;color:var(--vbm-mid);line-height:1.55;">Mudança significativa de processo, produto ou tecnologia. Pode envolver P&amp;D ou parceiros externos.</div></div>
+        <div style="border:1px solid #eaeaea;border-radius:.65rem;padding:1rem;"><div style="font-size:1.5rem;margin-bottom:.4rem;">🦺</div><div style="font-family:'ValeSans-Bold-web';font-size:.85rem;color:var(--vbm-dark);margin-bottom:.3rem;">Segurança</div><div style="font-size:.75rem;color:var(--vbm-mid);line-height:1.55;">Foco primário em eliminar ou reduzir riscos de segurança, saúde ou doenças ocupacionais. Prioridade máxima.</div></div>
+      </div>
+    </div>
+    <div class="modal-foot"><button class="btn btn-primary" data-modal-close>Entendido <i class="fa-solid fa-check"></i></button></div>
+  </div>
+</div>
+
+<div class="toast-container"></div>
+<script src="valebasemetals.com/assets/c40ab0f1d7d3a179_jquery.js"></script>
+<script src="valebasemetals.com/assets/a5ae4d56c21cbbd8_bootstrap.js"></script>
+<script src="valebasemetals.com/assets/ac5dfacf56be7b60_aos.js"></script>
+<script src="assets/vbm-app.js"></script>
+<script>
+(function(){
+  var btn=document.getElementById('mobileToggle'),drawer=document.getElementById('topnavDrawer');
+  if(btn&&drawer){btn.addEventListener('click',function(){var o=drawer.classList.toggle('open');btn.querySelector('i').className=o?'fa-solid fa-xmark':'fa-solid fa-bars';});document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!drawer.contains(e.target)){drawer.classList.remove('open');btn.querySelector('i').className='fa-solid fa-bars';}});}
+})();
+</script>
+</body>
+</html>
