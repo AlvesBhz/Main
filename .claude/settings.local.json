@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l \"/mnt/c/Users/becollor/Downloads/Main/index.html\" 2>/dev/null || echo \"not found\")",
+      "Read(//mnt/c/Users/becollor/Downloads/Main/**)",
+      "PowerShell(\\(Get-Content \"c:\\\\Users\\\\becollor\\\\Downloads\\\\Main\\\\index.html\" | Measure-Object -Line\\).Lines)",
+      "PowerShell(Start-Process \"c:\\\\Users\\\\becollor\\\\Downloads\\\\Main\\\\index.html\")",
+      "Bash(powershell -command \"Select-String -Path '*.html' -Pattern 'natureza|conecta' | Select-Object -First 20\")",
+      "Bash(grep -n \"exp-modal\\\\|exp-head\\\\|DOBRA 2\\\\|z-index: 2\\\\|#dobra-2\\\\|#dobra-3\\\\|BOOKING\\\\|\\\\/\\\\* ══\" \"c:/Users/becollor/Downloads/Main/Index.html\")",
+      "Bash(grep -v \"^[0-9]*:.*\\\\/\\\\*\\\\|^[0-9]*:.*<!--\\\\|^[0-9]*:.*\\\\.\")",
+      "Bash(grep -n \"id=\\\\\"dobra-2\\\\\"\\\\|<\\\\/section>\" \"c:/Users/becollor/Downloads/Main/Index.html\")",
+      "WebSearch",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:icons8.com)",
+      "WebFetch(domain:dribbble.com)",
+      "WebFetch(domain:www.eurostarshotels.co.uk)",
+      "WebFetch(domain:www.marriott.com)",
+      "WebFetch(domain:flaticon.com)",
+      "WebFetch(domain:www.hilton.com)",
+      "WebFetch(domain:designwithhospitality.framer.website)",
+      "WebFetch(domain:www.ihg.com)",
+      "WebFetch(domain:www.pinterest.com)",
+      "WebFetch(domain:www.mingsungroup.com)",
+      "WebFetch(domain:www.accorhotels.com)",
+      "WebFetch(domain:dryicons.com)",
+      "WebFetch(domain:thenounproject.com)",
+      "WebFetch(domain:www.shangri-la.com)",
+      "WebFetch(domain:www.fourseasons.com)",
+      "WebFetch(domain:iconscout.com)",
+      "WebFetch(domain:dighital.com)",
+      "WebFetch(domain:www.iconfinder.com)",
+      "Bash(Copy-Item \"c:\\\\Users\\\\becollor\\\\Downloads\\\\Main\\\\index.html\" \"c:\\\\Users\\\\becollor\\\\Downloads\\\\Main\\\\Final_site.html\")",
+      "PowerShell(Select-String -Path \"c:\\\\Users\\\\becollor\\\\Downloads\\\\Main\\\\index.html\" -Pattern \"footer|</section>|<footer\" -CaseSensitive:$false | Select-Object -Last 30 | ForEach-Object { \"$\\($_.LineNumber\\): $\\($_.Line\\)\" })"
+    ]
+  }
+}
